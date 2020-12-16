@@ -1,0 +1,103 @@
+
+/* listes*/
+ul{
+    list-style: none;
+    padding: 0;
+}
+
+/* link*/
+a{
+    text-decoration: none;
+}
+
+a:link, a:visited{
+    color: black;
+}
+
+/*boxes*/
+*{
+    box-sizing: border-box;
+}
+
+/* -------------------------  Elements principaux de la page ------------------------ */ 
+body{
+    width: auto;
+    margin: auto;
+}
+
+/* -------------------------  Header ------------------------ */ 
+/*.header{
+
+
+}*/
+
+.header__heading{
+    background-color: #F2F2F2;
+    border-bottom: 1px solid #cccccc;
+    margin: auto;
+    padding: 0.8rem;
+    text-align: center;
+}
+
+/* -------------------------  nav ------------------------ */ 
+
+.nav{
+    align-items: center;
+    background-color: #F3E9F1;
+    border-bottom: 1px solid #cccccc;
+    display: flex;
+    justify-content: space-around;
+}
+
+.nav__logo{
+    height: 5em;
+    width: 10em;
+}
+
+.nav__form{
+    display: flex;
+}
+
+.nav__search{
+    border: 1px solid #000000;
+    height: 2rem;
+    padding: 0;
+    width: 20em;
+}
+
+.nav__submit{
+    font-size: 1.2em;
+    border-radius: 0 25% 25% 0;
+}
+
+.fa-user, .fa-shopping-cart{
+    font-size: 1.2em;
+    margin-right: 0.7em;
+}
+
+/* -------------------------  Main ------------------------ */ 
+.main{
+    background-color: #EFEFEF;
+}
+
+/* -------------------------  Footer ------------------------ */ 
+.footer{
+    background-color: #F3E9F1;
+    border-top: 1px solid #cccccc;
+    bottom: 0;
+    display: flex;
+    justify-content: space-around;    
+    position: absolute;
+    width: 100%;
+}
+
+.footer__logo img{
+    height: 6em;
+    margin-top: 1em;
+    width: 12em;
+}
+
+.fab{
+    font-size: 1.2em;
+    margin-right: 1.1em;
+}
