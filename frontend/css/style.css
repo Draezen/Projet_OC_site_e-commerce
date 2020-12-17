@@ -80,6 +80,17 @@ body{
     background-color: #EFEFEF;
 }
 
+.teddies{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: auto;
+    width: 90vw;
+    height: 70vh;
+    background-color: red;
+}
+
+
 /* -------------------------  Footer ------------------------ */ 
 .footer{
     background-color: #F3E9F1;
