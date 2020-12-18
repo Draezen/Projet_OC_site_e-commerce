@@ -1,37 +1,48 @@
 
 
+prix = (prix, devise, change) => {
+    const langueUtilisee = document.getElementById("lang").value;
+    switch (langueUtilisee) {
+        case "fr-FR" :
+            devise = "EUR";
+            change = 1;
+            break
+        case "en-US" :
+            devise = "USD"
+            change = 1.2245;
+            break
+        case "en-GB" :
+            devise = "GBP"
+            change = 0.9067;
+            break
+        default :
+        console.error("Langue inexistante")
+    }
+    return new Intl.NumberFormat(langueUtilisee, {style : "currency", currency : devise}).format((prix/100)*change)
+}
+
+creerElement = (elem, classe, textContent, href, src) =>  {
+    const node = document.createElement(elem);
+    node.className = classe;
+    node.textContent = textContent;
+    node.href = href;
+    node.src = src;
+    return node
+}
+
 creerListeProduit = (listeProduits, produits) => {  
-    console.log(listeProduits)
+    //console.log(listeProduits)
     //récupération du container
-    let productsElt = document.getElementById(`${produits}Container`);
+    const productsElt = document.getElementById(`${produits}Container`);
     //création des éléments
-    listeProduits.forEach(produit => { 
-        /*const nodes = ["article", "a", "img", "h2", "p"]
-        nodes.forEach(node => {
-            let productElt = document.createElement(node)
-            productElt.className = `${produits}__card`
-            console.log(productElt)
-        })*/
-        
-        //carte
-        let productElt = document.createElement("article");
-        productElt.className = `${produits}__card`
-        //lien
-        let productLink = document.createElement("a");
-        productLink.href = "produit.html";
-        productLink.className = `${produits}__link`
-        //image
-        let productImage = document.createElement("img");
-        productImage.src = produit.imageUrl;
-        productImage.className = `${produits}__image`;
-        //nom
-        let productName = document.createElement("h2")
-        productName.textContent = produit.name;
-        productName.className = `${produits}__name`;
-        //prix
-        let productPrice = document.createElement("p");
-        productPrice.textContent = produit.price + " €";
-        productPrice.className = `${produits}__price`;
+    listeProduits.forEach(produit => {    
+        // création des cartes
+        const productElt = creerElement("article", `${produits}__card`)
+        const productLink = creerElement("a", `${produits}__link`, "","produit.html" )
+        productLink.id = produit._id;
+        const productImage = creerElement("img", `${produits}__image`, "", "",produit.imageUrl)
+        const productName = creerElement("h2", `${produits}__name`, produit.name)
+        const productPrice = creerElement("p", `${produits}__price`, prix(produit.price)) 
 
         //ajout dans le DOM
         productElt.appendChild(productLink);
@@ -39,6 +50,14 @@ creerListeProduit = (listeProduits, produits) => {
         productLink.appendChild(productName);
         productLink.appendChild(productPrice);
         productsElt.appendChild(productElt);
-                
+                 
     });
+}
+
+changementPrix = (lang, listeProduits) => {
+    document.lang = lang
+    listeProduits.forEach(produit => {
+        let productPrice = document.getElementById(produit._id).querySelector("p")
+        productPrice.textContent = prix(produit.price, lang)
+    })
 }
