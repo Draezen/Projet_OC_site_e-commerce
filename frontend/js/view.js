@@ -31,18 +31,18 @@ creerElement = (elem, classe, textContent, href, src) =>  {
 }
 
 creerListeProduit = (listeProduits, produits) => {  
-    //console.log(listeProduits)
     //récupération du container
     const productsElt = document.getElementById(`${produits}Container`);
     //création des éléments
     listeProduits.forEach(produit => {    
         // création des cartes
         const productElt = creerElement("article", `${produits}__card`)
-        const productLink = creerElement("a", `${produits}__link`, "","produit.html" )
-        productLink.id = produit._id;
+        const productLink = creerElement("a", `${produits}__link`, "","produit.html?id=" + produit._id )
+        //productLink.id = produit._id;
         const productImage = creerElement("img", `${produits}__image`, "", "",produit.imageUrl)
         const productName = creerElement("h2", `${produits}__name`, produit.name)
         const productPrice = creerElement("p", `${produits}__price`, prix(produit.price)) 
+        //productPrice.id = `${produits}Price`;
 
         //ajout dans le DOM
         productElt.appendChild(productLink);
@@ -54,10 +54,38 @@ creerListeProduit = (listeProduits, produits) => {
     });
 }
 
-changementPrix = (lang, listeProduits) => {
+changementPrix = (lang, listeProduits, produits) => {
     document.lang = lang
-    listeProduits.forEach(produit => {
-        let productPrice = document.getElementById(produit._id).querySelector("p")
-        productPrice.textContent = prix(produit.price, lang)
-    })
+    console.log(listeProduits)
+    let productPrice = document.getElementsByClassName(`${produits}__price`);
+    console.log(productPrice);
+    for ( let i in productPrice){
+        productPrice[i].textContent = prix((listeProduits[i].price), lang)
+    }
+    /*listeProduits.forEach(produit => {
+        //let productPrice = document.getElementById(`${produits}Price`);
+        //console.log(productPrice);
+        let productPrice = document.getElementsByClassName(`${produits}__price`);
+        console.log(productPrice);
+        //productPrice.textContent = prix(produit.price, lang)
+    })*/
+}
+
+creerProduit = (infosProduit, produit) => {
+    const productImage = document.getElementById(`${produit}Image`);
+    const productName = document.getElementById(`${produit}Name`);
+    const productAbout = document.getElementById(`${produit}About`);
+    const productColor = document.getElementById(`${produit}Color`);
+    const productPrice = document.getElementById(`${produit}Price`);
+
+    productImage.src = infosProduit.imageUrl;
+    productName.textContent = infosProduit.name;
+    productAbout.textContent = infosProduit.description;
+    for (let color of infosProduit.colors){
+        const optionElt = document.createElement("option");
+        optionElt.value = color;
+        optionElt.textContent = color;
+        productColor.appendChild(optionElt)
+    }
+    productPrice.textContent = prix(infosProduit.price);
 }

@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/20019ead01.js" crossorigin="anonymous"></script>
-    <script src="js/ajax.js"></script>
+    <script src="js/request.js"></script>
+    <script src="js/view.js"></script>
     <script src="js/panier.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <title>Orinoco - Panier</title>
@@ -15,15 +16,61 @@
             <a href="index.html"><img src="img/logo.png" alt="logo de Orinoco" class="nav__logo"></a>
             <form class="nav__form"> 
                 <input type="text" class="nav__search">
-                <input type="submit" value="&#xf002;" class="fa  nav__submit">
+                <input type="button" value="&#xf002;" class="fa  nav__submit">
             </form>
             <a href="#"><i class="fas fa-user"></i>Se connecter</a>
-            <a href="panier.html"><i class="fas fa-shopping-cart"></i>Mon panier</a>
+            <a href="panier.html"><span class="nav__item" id="itemInBasket"></span><i class="fas fa-shopping-cart"></i>Mon panier</a>
         </nav>
         <h1 class="header__heading">Bienvenue chez Orinoco !</h1>
     </header>
     
-    <main class="main">
+    <main class="main  panier__main">
+        <article class="basket">
+            <div class="basket__customer">
+                <h2 class="basket__heading">
+                    Coordonnées :
+                </h2>
+                <form class="basket__form">
+                    <label for="lastName">
+                        Nom :
+                    </label>
+                    <input type="text" name="lastName" id="formLastName" required>
+                    <label for="firstname">
+                        Prénom :
+                    </label>
+                    <input type="text" name="firstname" id="formFirstName" required>
+                    <label for="adress">
+                        Adresse :
+                    </label>
+                    <input type="text" name="adress" id="formAdress" required>
+                    <label for="city">
+                        Ville :
+                    </label>
+                    <input type="text" name="city" id="formCity" required>
+                    <label for="email">
+                        Adresse électronique :
+                    </label>
+                    <input type="email" name="email" id="formEmail" required>
+                    <input type="submit" value="Valider" class="basket__form--submit">
+                </form>
+            </div>  
+            <div class="basket__recap">  
+                <div>
+                    <h2 class="basket__recap--heading">
+                        Récapitulatif de votre commande :
+                    </h2> 
+                </div>
+                <div>
+
+                </div>
+                <div>
+                    <p class="basket__total">Total : </p>
+                </div>
+                
+    
+            </div>
+        </article>
+
         
     </main>
 

@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/20019ead01.js" crossorigin="anonymous"></script>
-    <script src="js/ajax.js" defer></script>
+    <script src="js/request.js" defer></script>
+    <script src="js/view.js" defer></script>
     <script src="js/produit.js" defer></script>
     <link rel="stylesheet" href="css/style.css">
     <title>Orinoco - Produit</title>
@@ -15,15 +16,55 @@
             <a href="index.html"><img src="img/logo.png" alt="logo de Orinoco" class="nav__logo"></a>
             <form class="nav__form"> 
                 <input type="text" class="nav__search">
-                <input type="submit" value="&#xf002;" class="fa  nav__submit">
+                <input type="button" value="&#xf002;" class="fa  nav__submit">
+            </form>
+            <form class="nav__lang">
+                <label for="lang">Prix : </label>
+                <select name="lang" id="lang">
+                    <option value="fr-FR">EUR</option>
+                    <option value="en-US">USD</option>
+                    <option value="en-GB">GBP</option>
+                </select>
             </form>
             <a href="#"><i class="fas fa-user"></i>Se connecter</a>
-            <a href="panier.html"><i class="fas fa-shopping-cart"></i>Mon panier</a>
+            <a href="panier.html"><span class="nav__item" id="itemInBasket"></span><i class="fas fa-shopping-cart"></i>Mon panier</a>
         </nav>
         <h1 class="header__heading">Bienvenue chez Orinoco !</h1>
     </header>
     
     <main class="main product_main">
+        <article class="teddy">
+            <div class="teddy__container  teddy__column-one">
+                <img alt="photo d'un ourson" class="teddy__image" id="teddyImage">
+            </div>
+            
+            <div class="teddy__container  teddy__column-two">
+                <h2 class="teddy__name" id="teddyName">
+                    
+                </h2>
+                <p class="teddy_about" id="teddyAbout">
+    
+                </p>
+                <form class="teddy__color" id="teddyForm">
+                    <label for="color">Couleurs : </label>
+                    <select name="color" id="teddyColor">
+                    </select>
+                </form>
+            </div>
+
+            <div class="teddy__container teddy__column-three">
+                <h2 class="teddy__price--heading">
+                    Prix
+                </h2>
+                <p class="teddy__price" id="teddyPrice">
+
+                </p>
+                <button class="teddy__add" id="addToBasket">
+                    Ajouter au panier
+                </button>
+            </div>
+
+        </article>
         
     </main>
 
