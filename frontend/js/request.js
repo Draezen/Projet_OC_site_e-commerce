@@ -13,8 +13,8 @@ async function getProduct (url) {
         console.error(e)
     }
 }
-/*
-const contact = {
+
+const contactTest = {
        firstName: "Thomas",
        lastName: "DANGER",
        address: "Chez moi",
@@ -22,17 +22,22 @@ const contact = {
        email: "moi@google.com"
 }
 
-const products = ["5be9c8541c9d440000665243"]
+const productsTest = ["5be9c8541c9d440000665243", "123456789"]
 
+const dataTest ={
+    contactTest,
+    productsTest
+}
+/*
 //requette POST
-async function envoieCommande (url, data1, data2){
+async function envoieCommande (url, data){
     try{
         const response = await fetch (url, {
             method : "POST",
             headers : {
                 "Content-Type" : "application/json"
             },
-            body : JSON.stringify(data1, data2)
+            body : JSON.stringify(data),
         })
         let responseData = await response.json()
         console.log(responseData)
@@ -41,8 +46,5 @@ async function envoieCommande (url, data1, data2){
     }
 }
 
-envoieCommande("http://localhost:3000/api/teddies/order", contact, products)
+envoieCommande("http://localhost:3000/api/teddies/order", dataTest)
 */
-
-
-

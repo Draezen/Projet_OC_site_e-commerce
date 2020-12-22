@@ -6,6 +6,8 @@ let contact = {
     email: ""
 }
 
+let products = [];
+
 let form = document.getElementById("basketForm").querySelector("form")
 
 form.addEventListener("submit", function (e) {
@@ -19,12 +21,13 @@ form.addEventListener("submit", function (e) {
 
 document.getElementById("formEmail").addEventListener("blur", function (e) {
     // Correspond à une chaîne de la forme xxx@yyy.zzz
-    var regexCourriel = /.+@.+\..+/;
-    var validiteCourriel = "";
-    if (!regexCourriel.test(e.target.value)) {
-        validiteCourriel = "Adresse invalide";
+    let regexMail = /.+@.+\..+/;
+    let valideMail = "";
+    if (!regexMail.test(e.target.value)) {
+        valideMail = "Adresse invalide";
     }else {
-        validiteCourriel = "\u00A0";
+        valideMail = "\u00A0";
     }
-    document.getElementById("helpEmail").textContent = validiteCourriel;
+    document.getElementById("helpEmail").textContent = valideMail;
 });
+

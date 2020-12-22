@@ -131,11 +131,11 @@ body{
 
 .teddy{
     display: grid;
-    height: 600px;
+    height: 41rem;
     grid-template-columns: repeat(5, 1fr);
     grid-gap: 1.5rem;;
     margin: auto;
-    padding: 1em 0;
+    padding: 4em 0;
     width: 90%;
 }
 
@@ -200,7 +200,7 @@ body{
     grid-template-columns: repeat(6, 1fr);
     grid-gap: 1.5rem;
     margin: auto;
-    padding: 2rem 0;
+    padding: 4rem 0;
     width: 90%;
 }
 
@@ -259,6 +259,22 @@ body{
     font-size: 1.4rem;
     margin: 1rem;
     padding: 1rem;
+}
+
+/* -------------------  confirmation  ----------------------------- */
+
+.confirmation{
+    margin: auto;
+    padding: 4rem 0;
+    width: 50%;
+}
+
+.confirmation__heading{
+    margin: 0;
+}
+
+.confirmation__id{
+    margin: 0;
 }
 
 /* -------------------------  Footer ------------------------ */ 
