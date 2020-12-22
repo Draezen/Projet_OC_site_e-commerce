@@ -34,15 +34,14 @@ creerListeProduit = (listeProduits, produits) => {
     //récupération du container
     const productsElt = document.getElementById(`${produits}Container`);
     //création des éléments
-    listeProduits.forEach(produit => {    
+    listeProduits.forEach(produit => {  
+
         // création des cartes
         const productElt = creerElement("article", `${produits}__card`)
         const productLink = creerElement("a", `${produits}__link`, "","produit.html?id=" + produit._id )
-        //productLink.id = produit._id;
         const productImage = creerElement("img", `${produits}__image`, "", "",produit.imageUrl)
         const productName = creerElement("h2", `${produits}__name`, produit.name)
         const productPrice = creerElement("p", `${produits}__price`, prix(produit.price)) 
-        //productPrice.id = `${produits}Price`;
 
         //ajout dans le DOM
         productElt.appendChild(productLink);
@@ -56,28 +55,21 @@ creerListeProduit = (listeProduits, produits) => {
 
 changementPrix = (lang, listeProduits, produits) => {
     document.lang = lang
-    console.log(listeProduits)
     let productPrice = document.getElementsByClassName(`${produits}__price`);
-    console.log(productPrice);
-    for ( let i in productPrice){
-        productPrice[i].textContent = prix((listeProduits[i].price), lang)
+    for (let i in listeProduits){
+        productPrice[i].textContent = prix(listeProduits[i].price, lang)
     }
-    /*listeProduits.forEach(produit => {
-        //let productPrice = document.getElementById(`${produits}Price`);
-        //console.log(productPrice);
-        let productPrice = document.getElementsByClassName(`${produits}__price`);
-        console.log(productPrice);
-        //productPrice.textContent = prix(produit.price, lang)
-    })*/
 }
 
 creerProduit = (infosProduit, produit) => {
+    //récupération des champs à remplir
     const productImage = document.getElementById(`${produit}Image`);
     const productName = document.getElementById(`${produit}Name`);
     const productAbout = document.getElementById(`${produit}About`);
     const productColor = document.getElementById(`${produit}Color`);
     const productPrice = document.getElementById(`${produit}Price`);
 
+    //remplissage des champs
     productImage.src = infosProduit.imageUrl;
     productName.textContent = infosProduit.name;
     productAbout.textContent = infosProduit.description;

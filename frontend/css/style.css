@@ -178,7 +178,7 @@ body{
 
 .teddy__add{
     background-color: #4997b7;
-    /*box-shadow: 0.1rem 0.1rem 0.2rem 0.2rem #072932;*/
+    box-shadow: 0.1rem 0.1rem 0.2rem 0.2rem #072932;
     border-radius: 1rem;
     color: #ffffff;
     font-size: 1em;
@@ -186,6 +186,11 @@ body{
 
 .teddy__add:hover{
     cursor: pointer;
+}
+
+.teddy__add:active{
+    border: 1px solid #4997b7;
+    box-shadow: 0 0  1rem 0.2em #4997b7;
 }
 
 /* ------------------------ Panier --------------------- */
@@ -208,7 +213,6 @@ body{
     border-radius: 1rem;
     box-shadow: 0.2rem 0.2rem 0.2rem 0.2rem #072932;;
     grid-column: 5/7;
-    /*text-align: center;*/
 }
 
 .basket__form{
