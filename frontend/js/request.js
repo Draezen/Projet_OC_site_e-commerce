@@ -10,7 +10,9 @@ async function getProduct (url) {
             console.error("Retour du serveur : ", response.status)
         }
     } catch(e) {
+        console.log("Problème avec l'opération fetch");
         console.error(e)
+        return e
     }
 }
 

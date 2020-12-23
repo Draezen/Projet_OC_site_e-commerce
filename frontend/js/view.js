@@ -59,3 +59,10 @@ creerProduit = (infosProduit, produit) => {
     }
     productPrice.textContent = prix(infosProduit.price);
 }
+
+//message Serveur Down
+serverDown = () => {
+    let mainElt = document.querySelector("main");
+    mainElt.id = "serverDown"
+    mainElt.innerHTML="<h1>Problème de connexion !</h1> <h2> Veuillez réessayer dans quelques instants !</h2>";
+}

@@ -81,6 +81,17 @@ body{
     background-color: #EFEFEF;
 }
 
+#serverDown{
+    align-items: center;
+    display: flex;
+    font-size: 1.5em;
+    flex-direction: column;
+    justify-content: center;
+    height: 65vh;
+    width: 100%;
+}
+
+
 /* ----------------- Page Index ------------------*/
 .teddies__heading{
     font-size: 2rem;
