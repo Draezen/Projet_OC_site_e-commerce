@@ -1,24 +1,7 @@
 
-
-prix = (prix, devise, change) => {
-    const langueUtilisee = document.getElementById("lang").value;
-    switch (langueUtilisee) {
-        case "fr-FR" :
-            devise = "EUR";
-            change = 1;
-            break
-        case "en-US" :
-            devise = "USD"
-            change = 1.2245;
-            break
-        case "en-GB" :
-            devise = "GBP"
-            change = 0.9067;
-            break
-        default :
-        console.error("Langue inexistante")
-    }
-    return new Intl.NumberFormat(langueUtilisee, {style : "currency", currency : devise}).format((prix/100)*change)
+//Mise en forme du prix avec l'internationalisation
+prix = (prix) => {
+    return new Intl.NumberFormat("fr-FR", {style : "currency", currency : "EUR"}).format(prix/100)
 }
 
 creerElement = (elem, classe, textContent, href, src) =>  {
@@ -30,6 +13,8 @@ creerElement = (elem, classe, textContent, href, src) =>  {
     return node
 }
 
+
+//création des carte OURSONS sur la page d'index
 creerListeProduit = (listeProduits, produits) => {  
     //récupération du container
     const productsElt = document.getElementById(`${produits}Container`);
@@ -53,14 +38,7 @@ creerListeProduit = (listeProduits, produits) => {
     });
 }
 
-changementPrix = (lang, listeProduits, produits) => {
-    document.lang = lang
-    let productPrice = document.getElementsByClassName(`${produits}__price`);
-    for (let i in listeProduits){
-        productPrice[i].textContent = prix(listeProduits[i].price, lang)
-    }
-}
-
+//Remplisage de la page produit
 creerProduit = (infosProduit, produit) => {
     //récupération des champs à remplir
     const productImage = document.getElementById(`${produit}Image`);

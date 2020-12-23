@@ -14,37 +14,21 @@ async function getProduct (url) {
     }
 }
 
-const contactTest = {
-       firstName: "Thomas",
-       lastName: "DANGER",
-       address: "Chez moi",
-       city: "Caen",
-       email: "moi@google.com"
-}
 
-const productsTest = ["5be9c8541c9d440000665243", "123456789"]
-
-const dataTest ={
-    contactTest,
-    productsTest
-}
-/*
 //requette POST
-async function envoieCommande (url, data){
+async function postOrder (url, data){
     try{
         const response = await fetch (url, {
             method : "POST",
             headers : {
                 "Content-Type" : "application/json"
             },
-            body : JSON.stringify(data),
+            body : JSON.stringify(data)
         })
         let responseData = await response.json()
-        console.log(responseData)
+        return responseData
     } catch(e) {
         console.error(e)
     }
 }
 
-envoieCommande("http://localhost:3000/api/teddies/order", dataTest)
-*/

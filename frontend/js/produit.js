@@ -17,15 +17,7 @@ recupererProduit(urlTeddy).then (infosProduit => {
     creerProduit(infosProduit, "teddy");
 })
 
-//changement de langue
-lang.addEventListener("change", function () {
-    recupererProduit(urlTeddy).then (infosProduit => {
-        const lang = document.getElementById("lang");
-        const listeProduits = [infosProduit];
-        changementPrix(lang.value, listeProduits, "teddy")
-    })
-})
-
+//ajout de l'ourson au panier
 addToBasketButton.addEventListener("click", function () {
     console.log(document.location)
 })
