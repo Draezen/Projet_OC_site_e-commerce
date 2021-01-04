@@ -91,6 +91,16 @@ body{
     width: 100%;
 }
 
+#urlInvalid{
+    align-items: center;
+    display: flex;
+    font-size: 1.5em;
+    flex-direction: column;
+    justify-content: center;
+    height: 65vh;
+    width: 100%;
+}
+
 
 /* ----------------- Page Index ------------------*/
 .teddies__heading{
@@ -208,7 +218,7 @@ body{
 
 .basket{
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(7, 1fr);
     grid-gap: 1.5rem;
     margin: auto;
     padding: 4rem 0;
@@ -217,13 +227,6 @@ body{
 
 .basket__customer{
     grid-column: 1/4;
-}
-
-.basket__recap{
-    border: 1px solid #072932;
-    border-radius: 1rem;
-    box-shadow: 0.2rem 0.2rem 0.2rem 0.2rem #072932;;
-    grid-column: 5/7;
 }
 
 .basket__form{
@@ -258,7 +261,25 @@ body{
 
 .basket__form--submit:hover{
     cursor: pointer;
+}
 
+
+.basket__recap{
+    border: 1px solid #072932;
+    border-radius: 1rem;
+    box-shadow: 0.2rem 0.2rem 0.2rem 0.2rem #072932;;
+    display: flex;
+    flex-direction: column;
+    grid-column: 5/8;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.basket__recap--articles{
+    border-spacing: 1rem;
+    margin: 0;
+    text-align: center;
+    width: 100%;
 }
 
 .basket__recap--heading{
@@ -270,6 +291,24 @@ body{
     font-size: 1.4rem;
     margin: 1rem;
     padding: 1rem;
+}
+.basket__clear{
+    background-color: #4997b7;
+    box-shadow: 0.2rem 0.2rem 0.2rem 0.2rem #072932;
+    border-radius: 0.5em;
+    color: #ffffff;
+    font-size: 1.4em;
+    margin: 2rem 0;
+    width: 50%;
+}
+
+.basket__clear:active{
+    border: 1px solid #4997b7;
+    box-shadow: 0 0 1rem 0.2em #4997b7;
+}
+
+.basket__clear:hover{
+    cursor: pointer;
 }
 
 /* -------------------  confirmation  ----------------------------- */

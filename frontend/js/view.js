@@ -66,3 +66,10 @@ serverDown = () => {
     mainElt.id = "serverDown"
     mainElt.innerHTML="<h1>Problème de connexion !</h1> <h2> Veuillez réessayer dans quelques instants !</h2>";
 }
+
+//message url invalide pas produit
+urlInvalid = () => {
+    let mainElt = document.querySelector("main");
+    mainElt.id = "urlInvalid"
+    mainElt.innerHTML="<h1>URL invalide !</h1> <h2>Veuillez réessayer avec un autre ourson !</h2>";
+}

@@ -12,6 +12,40 @@ const order = {
 }
 
 
+window.addEventListener("load", function(){
+    //console.log(window.localStorage)
+    basketArticles = document.getElementById("basketArticles")
+
+    const panier = JSON.parse(localStorage.getItem("panier"))
+    console.log(panier)
+    panier.forEach(produit => {
+        const lineElt = document.createElement("tr")
+        const nameElt = document.createElement("td")
+        nameElt.textContent = produit.nom
+        const priceElt = document.createElement("td")
+        priceElt.textContent = produit.prix
+        const quantityElt = document.createElement("td")
+        quantityElt.textContent = "qte : " + produit.qte
+        const deleteElt = document.createElement("button")
+        deleteElt.textContent = " Supprimmer "
+
+        lineElt.appendChild(nameElt)
+        lineElt.appendChild(priceElt)
+        lineElt.appendChild(quantityElt)
+        lineElt.appendChild(deleteElt)
+        basketArticles.appendChild(lineElt)
+
+    })
+})
+
+
+
+
+
+
+
+
+
 //Envoie de la commande
 function envoieCommande (url, data) {
     const confirmationCommande = postOrder(url, data)

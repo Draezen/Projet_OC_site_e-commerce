@@ -31,27 +31,27 @@
                     Coordonnées :
                 </h2>
                 <form class="basket__form">
-                    <label for="lastName">
+                    <label for="formLastName">
                         Nom :
                     </label>
                     <input type="text" name="lastName" id="formLastName" required>
-                    <label for="firstname">
+                    <label for="formFirstName">
                         Prénom :
                     </label>
                     <input type="text" name="firstname" id="formFirstName" required>
-                    <label for="adress">
+                    <label for="formAddress">
                         Adresse :
                     </label>
                     <input type="text" name="address" id="formAddress" required>
-                    <label for="city">
+                    <label for="formCity">
                         Ville :
                     </label>
                     <input type="text" name="city" id="formCity" required>
-                    <label for="email">
+                    <label for="formEmail">
                         Adresse électronique :
                     </label>
                     <input type="email" name="email" id="formEmail" required>
-                    <span class="formHelp" id="helpEmail">‎‏‏‎&#32‎</span>
+                    <span class="formHelp" id="helpEmail">‎‏‏‎&#32;‎</span>
                     <input type="submit" value="Commander" class="basket__form--submit">
                 </form>
             </div>  
@@ -61,12 +61,16 @@
                         Récapitulatif de votre commande :
                     </h2> 
                 </div>
-                <div class="basket__recap--articles">
+                <table class="basket__recap--articles" id="basketArticles">
 
-                </div>
+                </table>
                 <div>
                     <p class="basket__total">Total : </p>
                 </div>
+
+              <button class="basket__clear" id="basketClear">
+                  Vider le panier
+              </button>
                 
     
             </div>

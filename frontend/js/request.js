@@ -7,7 +7,8 @@ async function getProduct (url) {
             const data = await response.json();
             return data
         } else {
-            console.error("Retour du serveur : ", response.status)
+            //console.error("Retour du serveur : ", response.status);
+            return response.status
         }
     } catch(e) {
         console.log("Problème avec l'opération fetch");
