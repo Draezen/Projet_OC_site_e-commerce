@@ -81,17 +81,7 @@ body{
     background-color: #EFEFEF;
 }
 
-#serverDown{
-    align-items: center;
-    display: flex;
-    font-size: 1.5em;
-    flex-direction: column;
-    justify-content: center;
-    height: 65vh;
-    width: 100%;
-}
-
-#urlInvalid{
+#serverDown, #urlInvalid, #basketEmpty{
     align-items: center;
     display: flex;
     font-size: 1.5em;
@@ -271,7 +261,7 @@ body{
     display: flex;
     flex-direction: column;
     grid-column: 5/8;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -283,6 +273,7 @@ body{
 }
 
 .basket__recap--heading{
+    margin: 2rem 0;
     text-align: center;
 }
 
@@ -308,6 +299,22 @@ body{
 }
 
 .basket__clear:hover{
+    cursor: pointer;
+}
+
+.basket__recap--supr{
+    background-color: #4997b7;
+    box-shadow: 0.2rem 0.2rem 0.2rem 0.2rem #072932;
+    border-radius: 0.5em;
+    color: #ffffff;
+}
+
+.basket__recap--supr:active{
+    border: 1px solid #4997b7;
+    box-shadow: 0 0 1rem 0.2em #4997b7;
+}
+
+.basket__recap--supr:hover{
     cursor: pointer;
 }
 

@@ -1,4 +1,5 @@
 const urlOrder = "http://localhost:3000/api/teddies/order"; 
+const urlTeddies = "http://localhost:3000/api/teddies";
 
 const order = {
     contact : {
@@ -11,40 +12,39 @@ const order = {
     products :  ["5be9c8541c9d440000665243"]
 }
 
+//Vérification de l'état du serveur
+function etatServeur (url) {
+    const response = getProduct(url);
+    return response
+}
 
-window.addEventListener("load", function(){
-    //console.log(window.localStorage)
-    basketArticles = document.getElementById("basketArticles")
+//récapitulatif de la commande 
 
-    const panier = JSON.parse(localStorage.getItem("panier"))
-    console.log(panier)
-    panier.forEach(produit => {
-        const lineElt = document.createElement("tr")
-        const nameElt = document.createElement("td")
-        nameElt.textContent = produit.nom
-        const priceElt = document.createElement("td")
-        priceElt.textContent = produit.prix
-        const quantityElt = document.createElement("td")
-        quantityElt.textContent = "qte : " + produit.qte
-        const deleteElt = document.createElement("button")
-        deleteElt.textContent = " Supprimmer "
+const basketArticles = document.getElementById("basketArticles")
+const basketTotal = document.getElementById("basketTotal")
 
-        lineElt.appendChild(nameElt)
-        lineElt.appendChild(priceElt)
-        lineElt.appendChild(quantityElt)
-        lineElt.appendChild(deleteElt)
-        basketArticles.appendChild(lineElt)
+//création de la liste des produits dans le panier
+window.addEventListener("load", function(){  
+    etatServeur(urlTeddies).then (response => {
+        if (response.name === "TypeError"){
+            messageErreur("main", "serverDown", "<h1>Problème de connexion !</h1> <h2> Veuillez réessayer dans quelques instants !</h2>")
+        }else {
+            recapPanier(basketArticles,basketTotal)
+        }
+    }) 
+})
 
-    })
+const clearBasket = document.getElementById("basketClear");
+
+//vider tout el panier
+clearBasket.addEventListener("click", function(){
+    localStorage.clear()
+    recapPanier(basketArticles, basketTotal)
 })
 
 
 
-
-
-
-
-
+//Formulaire
 
 //Envoie de la commande
 function envoieCommande (url, data) {

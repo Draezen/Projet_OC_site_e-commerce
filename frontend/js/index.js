@@ -11,7 +11,7 @@ function recupererProduit (url) {
 //affichage des oursons sur la page d'accueil
 recupererProduit(urlTeddies).then (listeProduits => {
     if (listeProduits.name === "TypeError"){
-        serverDown()
+        messageErreur("main", "serverDown", "<h1>Problème de connexion !</h1> <h2> Veuillez réessayer dans quelques instants !</h2>")
     }else {
         creerListeProduit(listeProduits, "teddies");
     }

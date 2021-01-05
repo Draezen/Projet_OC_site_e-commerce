@@ -15,7 +15,7 @@ function recupererProduit (url) {
         }
     })
     .catch(function(e){
-        urlInvalid()
+        messageErreur("main", "urlInvalid", "<h1>URL invalide !</h1> <h2>Veuillez réessayer avec un autre ourson !</h2>")
     })
     return response
 }
@@ -24,7 +24,7 @@ function recupererProduit (url) {
 recupererProduit(urlTeddy).then (infosProduit => {
     //console.log(infosProduit)
     if(infosProduit.name === "TypeError"){
-        serverDown()
+        messageErreur("main", "serverDown", "<h1>Problème de connexion !</h1> <h2> Veuillez réessayer dans quelques instants !</h2>")
     } else {
     creerProduit(infosProduit, "teddy");
     }
@@ -35,13 +35,6 @@ addToBasketButton.addEventListener("click", function () {
     const name = document.getElementById("teddyName").textContent
     const price = document.getElementById("teddyPrice").textContent
     const product = [{nom : name, prix : price, qte : 1, id : id}]
-
-    if (localStorage.getItem("panier") !== null) {   
-        const panier = product.concat(JSON.parse(localStorage.getItem("panier")))
-        localStorage.setItem("panier", JSON.stringify(panier))
-        //console.log(window.localStorage)
-   } else {
-       localStorage.setItem("panier", JSON.stringify(product))
-   }
-
+    ajoutPanier(product)
 })
+
