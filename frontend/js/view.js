@@ -1,9 +1,17 @@
 
+//affichage d'un message sur la page
+messageErreur = (selector, id, content) => {
+    let mainElt = document.querySelector(selector);
+    mainElt.id = id
+    mainElt.innerHTML = content;
+}
+
 //Mise en forme du prix avec l'internationalisation
 prix = (prix) => {
     return new Intl.NumberFormat("fr-FR", {style : "currency", currency : "EUR"}).format(prix)
 }
 
+//créer un noeud
 creerElement = (elem, classe, textContent, href, src) =>  {
     const node = document.createElement(elem);
     node.className = classe;
@@ -67,7 +75,6 @@ ajoutPanier = (product) => {
         const panier = product.concat(JSON.parse(localStorage.getItem("panier")))
         //enregistrement du panier mis à jour dans le local storage 
         localStorage.setItem("panier", JSON.stringify(panier))
-        //console.log(window.localStorage)
    } else {
        localStorage.setItem("panier", JSON.stringify(product))
    }
@@ -131,9 +138,21 @@ totalPanierAffichage = (container) => {
     container.textContent = prix(priceTotal)
 }
 
-//affichage d'un message sur la page
-messageErreur = (selector, id, content) => {
-    let mainElt = document.querySelector(selector);
-    mainElt.id = id
-    mainElt.innerHTML = content;
+//Vérification saisie
+verifChamp = (champ, regex) => {
+    if (!regex.test(champ.target.value)) {
+        return true;
+    }
+}
+
+//Validation d'un champ du formulaire
+champValide = (champ, regex, help, id) => {
+    let formHelp = "";
+    const valide = verifChamp(champ, regex)
+    if (valide == true) {
+        formHelp = help;
+    } else {
+        formHelp = "\u00A0";
+    }
+    document.getElementById(id).textContent = formHelp;
 }
