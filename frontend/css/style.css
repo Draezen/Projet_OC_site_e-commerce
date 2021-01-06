@@ -259,6 +259,14 @@ body{
     margin: 0.5rem 0;
 }
 
+.form__help--valid{
+    color: rgb(255,0 ,0 );
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 1rem 0;
+    text-align: center;
+}
+
 .basket__recap{
     border: 1px solid #072932;
     border-radius: 1rem;

@@ -139,20 +139,52 @@ totalPanierAffichage = (container) => {
 }
 
 //Vérification saisie
-verifChamp = (champ, regex) => {
+verifRegexChamp = (champ, regex) => {
     if (!regex.test(champ.target.value)) {
-        return true;
+        return false;
     }
 }
 
 //Validation d'un champ du formulaire
-champValide = (champ, regex, help, id) => {
+verifChampValide = (champ, regex, help, id) => {
     let formHelp = "";
-    const valide = verifChamp(champ, regex)
-    if (valide == true) {
+    const valide = verifRegexChamp(champ, regex)
+    if (valide == false) {
         formHelp = help;
+        document.getElementById(id).classList.remove("valide")
     } else {
         formHelp = "\u00A0";
+        document.getElementById(id).classList.add("valide")
+        document.getElementById("formInvalid").textContent = formHelp
     }
     document.getElementById(id).textContent = formHelp;
 }
+
+//Récupérer les id des produit à commander
+ajouterIdCommande = (products) => {
+    const panier = JSON.parse(localStorage.getItem("panier"))
+    panier.forEach(produit => {
+        products.push(produit.id)
+    })
+    return products
+}
+
+
+//Remplir la commande
+remplirBonCommande = () => {
+    const order = {
+        contact: {
+            firstName: form.elements.formFirstName.value,
+            lastName: form.elements.formLastName.value,
+            address: form.elements.formAddress.value,
+            city: form.elements.formCity.value,
+            email: form.elements.formEmail.value
+        },
+        products: []
+    }
+    ajouterIdCommande(order.products)
+    return order
+}
+
+
+

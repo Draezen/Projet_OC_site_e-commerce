@@ -1,16 +1,6 @@
 const urlOrder = "http://localhost:3000/api/teddies/order";
 const urlTeddies = "http://localhost:3000/api/teddies";
 
-const order = {
-    contact: {
-        firstName: "",
-        lastName: "",
-        address: "",
-        city: "",
-        email: ""
-    },
-    products: []
-}
 
 //Vérification de l'état du serveur
 function etatServeur(url) {
@@ -44,36 +34,36 @@ clearBasket.addEventListener("click", function () {
 
 //Formulaire
 
-//Vérification des différents champs du formulaire
+//Vérification de la saisie dans les champs du formulaire
 
 //nom
 document.getElementById("formLastName").addEventListener("blur", function (e) {
     const regex = /^[A-Za-z\é\è\ê\-\ \ç\ï\ë\']+$/;
-    champValide(e, regex, "Nom invalide", "helpLastName")
+    verifChampValide(e, regex, "Nom invalide", "helpLastName")
 })
 
 //prénom
 document.getElementById("formFirstName").addEventListener("blur", function (e) {
     const regex = /^[A-Za-z\é\è\ê\-\ \ç\ï\ë\']+$/;
-    champValide(e, regex, "Prénom invalide", "helpFirstName")
+    verifChampValide(e, regex, "Prénom invalide", "helpFirstName")
 })
 
 //adresse
 document.getElementById("formAddress").addEventListener("blur", function (e) {
     const regex = /^[0-9A-Za-z\é\è\ê\-\ \ç\ï\ë\']+$/;
-    champValide(e, regex, "Adresse invalide", "helpAddress")
+    verifChampValide(e, regex, "Adresse invalide", "helpAddress")
 })
 //ville
 document.getElementById("formCity").addEventListener("blur", function (e) {
     const regex = /^[A-Za-z\é\è\ê\-\ \ç\ï\ë\']+$/;
-    champValide(e, regex, "Ville invalide", "helpCity")
+    verifChampValide(e, regex, "Ville invalide", "helpCity")
 })
 
 //mail
 document.getElementById("formEmail").addEventListener("blur", function (e) {
     // Correspond à une chaîne de la forme xxx@yyy.zzz
     const regex = /.+@.+\..+/;
-    champValide(e, regex, "Adresse invalide", "helpEmail")
+    verifChampValide(e, regex, "Adresse invalide", "helpEmail")
 })
 
 //Envoie de la commande
@@ -82,18 +72,27 @@ function envoieCommande(url, data) {
     return confirmationCommande
 }
 
-let form = document.getElementById("basketForm").querySelector("form")
+//vérification de la validation du formulaire
+validerFormulaire = (formValide) =>{
+    if (formValide.length === 5){
+        //completer la commande
+        const order = remplirBonCommande()
+        //Recupération de la confirmation de la commande
+        envoieCommande(urlOrder, order).then(returnData => {
+            console.log(returnData)
+        })
+    } else {
+        document.getElementById("formInvalid").textContent = "Formulaire non valide ! Vérifiez les informations entrées.";
+    }
+}
+
+//Envoie du formulaire
+const form = document.getElementById("basketForm").querySelector("form")
 
 form.addEventListener("submit", function (e) {
-    order.contact.lastName = form.elements.formLastName.value;
-    order.contact.firstName = form.elements.formFirstName.value;
-    order.contact.address = form.elements.formAddress.value;
-    order.contact.city = form.elements.formCity.value;
-    order.contact.email = form.elements.formEmail.value;
-
-    //Recupération de la confirmation de la commande
-    envoieCommande(urlOrder, order).then(returnData => {
-        console.log(returnData)
-    })
     e.preventDefault()
+
+    const valide = document.getElementsByClassName("form__help valide")
+    validerFormulaire(valide)
 })
+
