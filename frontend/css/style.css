@@ -81,6 +81,16 @@ body{
     background-color: #EFEFEF;
 }
 
+.main__confirmation{
+    align-items: center;
+    display: flex;
+    font-size: 1.5em;
+    flex-direction: column;
+    justify-content: center;
+    height: 65vh;
+    width: 100%;
+}
+
 #serverDown, #urlInvalid, #basketEmpty{
     align-items: center;
     display: flex;

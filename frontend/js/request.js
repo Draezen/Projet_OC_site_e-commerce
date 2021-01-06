@@ -28,8 +28,12 @@ async function postOrder (url, data){
             },
             body : JSON.stringify(data)
         })
-        let responseData = await response.json()
-        return responseData
+        if (response.ok) {
+            let data = await response.json()
+            return data
+        } else {
+            return response.status
+        }
     } catch(e) {
         console.error(e)
     }

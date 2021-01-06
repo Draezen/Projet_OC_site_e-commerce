@@ -69,6 +69,14 @@ document.getElementById("formEmail").addEventListener("blur", function (e) {
 //Envoie de la commande
 function envoieCommande(url, data) {
     const confirmationCommande = postOrder(url, data)
+    confirmationCommande.then(function(status){
+        if (status ===500){
+            throw new Error("error")
+        }
+    })
+    .catch(function(e){
+        console.error(e);
+    })
     return confirmationCommande
 }
 
@@ -80,6 +88,7 @@ validerFormulaire = (formValide) =>{
         //Recupération de la confirmation de la commande
         envoieCommande(urlOrder, order).then(returnData => {
             console.log(returnData)
+            //window.location.href = "./confirmation.html";
         })
     } else {
         document.getElementById("formInvalid").textContent = "Formulaire non valide ! Vérifiez les informations entrées.";
@@ -91,7 +100,6 @@ const form = document.getElementById("basketForm").querySelector("form")
 
 form.addEventListener("submit", function (e) {
     e.preventDefault()
-
     const valide = document.getElementsByClassName("form__help valide")
     validerFormulaire(valide)
 })
