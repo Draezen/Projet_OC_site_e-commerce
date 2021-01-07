@@ -169,7 +169,6 @@ ajouterIdCommande = (products) => {
     return products
 }
 
-
 //Remplir la commande
 remplirBonCommande = () => {
     const order = {
@@ -186,5 +185,16 @@ remplirBonCommande = () => {
     return order
 }
 
+//enregistrement de l'id et du prix
+validerCommande = (data) => {
+    const price = parseInt(document.getElementById("basketTotal").textContent)
+    const id = data.orderId
+    const url =  "./confirmation.html?" + "id=" + id + "&price=" + price  ;
+    return url
+}
 
-
+//récupération de la validation de commande
+afficherValidationCommande = (id, price) => {
+    document.getElementById("orderPrice").textContent = prix(price)
+    document.getElementById("orderId").textContent = id
+}

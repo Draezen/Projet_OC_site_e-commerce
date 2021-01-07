@@ -346,16 +346,13 @@ body{
 .confirmation{
     margin: auto;
     padding: 4rem 0;
-    width: 50%;
+    width: 60%;
 }
 
 .confirmation__heading{
     margin: 0;
 }
 
-.confirmation__id{
-    margin: 0;
-}
 
 /* -------------------------  Footer ------------------------ */ 
 .footer{

@@ -87,8 +87,8 @@ validerFormulaire = (formValide) =>{
         const order = remplirBonCommande()
         //Recupération de la confirmation de la commande
         envoieCommande(urlOrder, order).then(returnData => {
-            console.log(returnData)
-            //window.location.href = "./confirmation.html";
+            //console.log(returnData)
+            window.location.href = validerCommande(returnData)
         })
     } else {
         document.getElementById("formInvalid").textContent = "Formulaire non valide ! Vérifiez les informations entrées.";
