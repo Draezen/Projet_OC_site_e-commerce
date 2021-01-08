@@ -1,18 +1,18 @@
 
 //affichage d'un message sur la page
-messageErreur = (selector, id, content) => {
+const messageErreur = (selector, id, content) => {
     let mainElt = document.querySelector(selector);
     mainElt.id = id
     mainElt.innerHTML = content;
 }
 
 //Mise en forme du prix avec l'internationalisation
-prix = (prix) => {
+const prix = (prix) => {
     return new Intl.NumberFormat("fr-FR", {style : "currency", currency : "EUR"}).format(prix)
 }
 
 //créer un noeud
-creerElement = (elem, classe, textContent, href, src) =>  {
+const creerElement = (elem, classe, textContent, href, src) =>  {
     const node = document.createElement(elem);
     node.className = classe;
     node.textContent = textContent;
@@ -23,7 +23,7 @@ creerElement = (elem, classe, textContent, href, src) =>  {
 
 
 //création des carte OURSONS sur la page d'index
-creerListeProduit = (listeProduits, produits) => {  
+const creerListeProduit = (listeProduits, produits) => {  
     //récupération du container
     const productsElt = document.getElementById(`${produits}Container`);
     //création des éléments
@@ -47,7 +47,7 @@ creerListeProduit = (listeProduits, produits) => {
 }
 
 //Remplisage de la page produit
-creerProduit = (infosProduit, produit) => {
+const creerProduit = (infosProduit, produit) => {
     //récupération des champs à remplir
     const productImage = document.getElementById(`${produit}Image`);
     const productName = document.getElementById(`${produit}Name`);
@@ -68,8 +68,17 @@ creerProduit = (infosProduit, produit) => {
     productPrice.textContent = prix(infosProduit.price/100);
 }
 
+//message de confirmation d'ajout au panier
+const confirmationAjout = () => {
+    const confirmELt = document.getElementById("confirmAdd")
+    confirmELt.textContent = "Ourson ajouté au panier !"
+    setTimeout (function() {
+        confirmELt.textContent =""
+    }, 1000)
+}
+
 //Ajout du produit au panier
-ajoutPanier = (product) => {
+const ajoutPanier = (product) => {
     if (localStorage.getItem("panier") !== null) {   
         //concaténation du produit à ajouter avec le panier en local storage
         const panier = product.concat(JSON.parse(localStorage.getItem("panier")))
@@ -78,10 +87,11 @@ ajoutPanier = (product) => {
    } else {
        localStorage.setItem("panier", JSON.stringify(product))
    }
+   confirmationAjout()
 }
 
 //Suppression d'un article du panier
-supprArticlePanier = (article) => {
+const supprArticlePanier = (article) => {
     let panier = JSON.parse(localStorage.getItem("panier"))
     if (panier.length > 1) {
         panier.splice(article, 1)
@@ -92,7 +102,7 @@ supprArticlePanier = (article) => {
 }
 
 //affichages des produits dans le panier
-recapPanier = (container, priceTotal) => {
+const recapPanier = (container, priceTotal) => {
     container.innerHTML = ""
     const panier = JSON.parse(localStorage.getItem("panier"))
     //console.log(panier)
@@ -123,7 +133,7 @@ recapPanier = (container, priceTotal) => {
 
 
 //calculer le prix total du panier
-totalPanierCalcul = () => {
+const totalPanierCalcul = () => {
     const prices = document.getElementsByClassName("basket__recap--price")
     let priceTotal = 0
     for (let price of prices){
@@ -133,20 +143,20 @@ totalPanierCalcul = () => {
 }
 
 //Afficher le prix total du panier
-totalPanierAffichage = (container) => {
+const totalPanierAffichage = (container) => {
     const priceTotal = totalPanierCalcul()
     container.textContent = prix(priceTotal)
 }
 
 //Vérification saisie
-verifRegexChamp = (champ, regex) => {
+const verifRegexChamp = (champ, regex) => {
     if (!regex.test(champ.target.value)) {
         return false;
     }
 }
 
 //Validation d'un champ du formulaire
-verifChampValide = (champ, regex, help, id) => {
+const verifChampValide = (champ, regex, help, id) => {
     let formHelp = "";
     const valide = verifRegexChamp(champ, regex)
     if (valide == false) {
@@ -161,7 +171,7 @@ verifChampValide = (champ, regex, help, id) => {
 }
 
 //Récupérer les id des produit à commander
-ajouterIdCommande = (products) => {
+const ajouterIdCommande = (products) => {
     const panier = JSON.parse(localStorage.getItem("panier"))
     panier.forEach(produit => {
         products.push(produit.id)
@@ -170,7 +180,7 @@ ajouterIdCommande = (products) => {
 }
 
 //Remplir la commande
-remplirBonCommande = () => {
+const remplirBonCommande = () => {
     const order = {
         contact: {
             firstName: form.elements.formFirstName.value,
@@ -186,15 +196,16 @@ remplirBonCommande = () => {
 }
 
 //enregistrement de l'id et du prix
-validerCommande = (data) => {
+const validerCommande = (data) => {
     const price = parseInt(document.getElementById("basketTotal").textContent)
     const id = data.orderId
-    const url =  "./confirmation.html?" + "id=" + id + "&price=" + price  ;
-    return url
+    const command = {prix : price, id : id}
+    localStorage.setItem("commande", JSON.stringify(command))
 }
 
 //récupération de la validation de commande
-afficherValidationCommande = (id, price) => {
-    document.getElementById("orderPrice").textContent = prix(price)
-    document.getElementById("orderId").textContent = id
+const afficherValidationCommande = () => {
+    const command = JSON.parse(localStorage.getItem("commande"))
+    document.getElementById("orderPrice").textContent = prix(command.prix)
+    document.getElementById("orderId").textContent = command.id
 }

@@ -1,6 +1,8 @@
 window.addEventListener("load", function () {
-    const params = (new URL(document.location)).searchParams;
-    const id = params.get("id")
-    const price = params.get("price")
-    afficherValidationCommande(id, price)
+    if (localStorage.getItem("commande") !== null){
+        afficherValidationCommande()
+        localStorage.clear()
+    } else {
+        window.location.href = "./index.html"
+    }
 })

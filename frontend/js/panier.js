@@ -69,7 +69,7 @@ document.getElementById("formEmail").addEventListener("blur", function (e) {
 //Envoie de la commande
 function envoieCommande(url, data) {
     const confirmationCommande = postOrder(url, data)
-    confirmationCommande.then(function(status){
+    confirmationCommande.then (status => {
         if (status ===500){
             throw new Error("error")
         }
@@ -87,8 +87,8 @@ validerFormulaire = (formValide) =>{
         const order = remplirBonCommande()
         //Recupération de la confirmation de la commande
         envoieCommande(urlOrder, order).then(returnData => {
-            //console.log(returnData)
-            window.location.href = validerCommande(returnData)
+            validerCommande(returnData)
+            window.location.href = "./confirmation.html"
         })
     } else {
         document.getElementById("formInvalid").textContent = "Formulaire non valide ! Vérifiez les informations entrées.";

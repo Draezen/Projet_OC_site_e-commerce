@@ -7,9 +7,9 @@ const urlTeddy = urlTeddies + "/" + id;
 const addToBasketButton = document.getElementById("addToBasket");
 
 //récupération des infos de l'ourson
-function recupererProduit (url) {
+const recupererProduit = (url) => {
     const response = getProduct(url);
-    response.then(function(status){
+    response.then (status => {
         if (status === 500){
            throw new Error("error")
         }
@@ -22,7 +22,6 @@ function recupererProduit (url) {
 
 //affichage de l'ourson sur la page produit
 recupererProduit(urlTeddy).then (infosProduit => {
-    //console.log(infosProduit)
     if(infosProduit.name === "TypeError"){
         messageErreur("main", "serverDown", "<h1>Problème de connexion !</h1> <h2> Veuillez réessayer dans quelques instants !</h2>")
     } else {
