@@ -20,14 +20,20 @@ const recupererProduit = (url) => {
     return response
 }
 
-//affichage de l'ourson sur la page produit
-recupererProduit(urlTeddy).then (infosProduit => {
-    if(infosProduit.name === "TypeError"){
-        messageErreur("main", "serverDown", "<h1>Problème de connexion !</h1> <h2> Veuillez réessayer dans quelques instants !</h2>")
-    } else {
-    creerProduit(infosProduit, "teddy");
-    }
-})
+const afficherProduit = () =>{
+
+    addLoader("main", "loader")
+
+    //affichage de l'ourson sur la page produit
+    recupererProduit(urlTeddy).then (infosProduit => {
+        if(infosProduit.name === "TypeError"){
+            messageErreur("main", "serverDown", "<h1>Problème de connexion !</h1> <h2> Veuillez réessayer dans quelques instants !</h2>")
+        } else {
+        creerProduit(infosProduit, "teddy");
+        }
+    })
+}
+
 
 //ajout de l'ourson au panier
 addToBasketButton.addEventListener("click", function () {
@@ -37,3 +43,4 @@ addToBasketButton.addEventListener("click", function () {
     ajoutPanier(product)
 })
 
+afficherProduit()

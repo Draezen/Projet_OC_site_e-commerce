@@ -8,11 +8,11 @@ const messageErreur = (selector, id, content) => {
 
 //Mise en forme du prix avec l'internationalisation
 const prix = (prix) => {
-    return new Intl.NumberFormat("fr-FR", {style : "currency", currency : "EUR"}).format(prix)
+    return new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" }).format(prix)
 }
 
 //créer un noeud
-const creerElement = (elem, classe, textContent, href, src) =>  {
+const creerElement = (elem, classe, textContent, href, src) => {
     const node = document.createElement(elem);
     node.className = classe;
     node.textContent = textContent;
@@ -21,20 +21,43 @@ const creerElement = (elem, classe, textContent, href, src) =>  {
     return node
 }
 
+//création loader
+const addLoader = (selector, id) => {
+    const mainElt = document.querySelector(selector)
+    //mainElt.innerHTML = ""
+    mainElt.id = id
+    loaderElt = creerElement("div", "lds-roller")
+    loaderElt.id = `div${id}`
+    mainElt.appendChild(loaderElt)
+    for (let i = 0; i < 8; i++) {
+        divElt = creerElement("div", "div__loader")
+        loaderElt.appendChild(divElt)
+    }
+}
+
+//Suppression loader
+const removeLoader = (id) => {
+    const containerElt = document.getElementById(id)
+    containerElt.removeAttribute("id")
+    document.getElementById("divloader").remove()
+}
 
 //création des carte OURSONS sur la page d'index
-const creerListeProduit = (listeProduits, produits) => {  
+const creerListeProduit = (listeProduits, produits) => {
+
+    removeLoader("loader")
+
     //récupération du container
     const productsElt = document.getElementById(`${produits}Container`);
     //création des éléments
-    listeProduits.forEach(produit => {  
+    listeProduits.forEach(produit => {
 
         // création des cartes
         const productElt = creerElement("article", `${produits}__card`)
-        const productLink = creerElement("a", `${produits}__link`, "","produit.html?id=" + produit._id )
-        const productImage = creerElement("img", `${produits}__image`, "", "",produit.imageUrl)
+        const productLink = creerElement("a", `${produits}__link`, "", "produit.html?id=" + produit._id)
+        const productImage = creerElement("img", `${produits}__image`, "", "", produit.imageUrl)
         const productName = creerElement("h2", `${produits}__name`, produit.name)
-        const productPrice = creerElement("p", `${produits}__price`, prix(produit.price/100)) 
+        const productPrice = creerElement("p", `${produits}__price`, prix(produit.price / 100))
 
         //ajout dans le DOM
         productElt.appendChild(productLink);
@@ -42,12 +65,15 @@ const creerListeProduit = (listeProduits, produits) => {
         productLink.appendChild(productName);
         productLink.appendChild(productPrice);
         productsElt.appendChild(productElt);
-                 
+
     });
 }
 
 //Remplisage de la page produit
 const creerProduit = (infosProduit, produit) => {
+
+    removeLoader("loader")
+
     //récupération des champs à remplir
     const productImage = document.getElementById(`${produit}Image`);
     const productName = document.getElementById(`${produit}Name`);
@@ -59,20 +85,20 @@ const creerProduit = (infosProduit, produit) => {
     productImage.src = infosProduit.imageUrl;
     productName.textContent = infosProduit.name;
     productAbout.textContent = infosProduit.description;
-    for (let color of infosProduit.colors){
+    for (let color of infosProduit.colors) {
         const optionElt = document.createElement("option");
         optionElt.value = color;
         optionElt.textContent = color;
         productColor.appendChild(optionElt)
     }
-    productPrice.textContent = prix(infosProduit.price/100);
+    productPrice.textContent = prix(infosProduit.price / 100);
 }
 
 let compteur = 1
 
 //compteur de click
 const compteurClick = () => {
-    return compteur ++
+    return compteur++
 }
 
 //message de confirmation d'ajout au panier
@@ -81,24 +107,24 @@ const confirmationAjout = () => {
     const compteurElt = document.getElementById("counterClick")
     compteurElt.textContent = compteurClick()
     confirmELt.textContent = " Ourson(s) ajouté(s) au panier !"
-    setTimeout (function() {
-        confirmELt.textContent =""
-        compteurElt.textContent=""
+    setTimeout(function () {
+        confirmELt.textContent = ""
+        compteurElt.textContent = ""
         compteur = 1
     }, 2000)
 }
 
 //Ajout du produit au panier
 const ajoutPanier = (product) => {
-    if (localStorage.getItem("panier") !== null) {   
+    if (localStorage.getItem("panier") !== null) {
         //concaténation du produit à ajouter avec le panier en local storage
         const panier = product.concat(JSON.parse(localStorage.getItem("panier")))
         //enregistrement du panier mis à jour dans le local storage 
         localStorage.setItem("panier", JSON.stringify(panier))
-   } else {
-       localStorage.setItem("panier", JSON.stringify(product))
-   }
-   confirmationAjout()
+    } else {
+        localStorage.setItem("panier", JSON.stringify(product))
+    }
+    confirmationAjout()
 }
 
 //Suppression d'un article du panier
@@ -117,14 +143,14 @@ const recapPanier = (container, priceTotal) => {
     container.innerHTML = ""
     const panier = JSON.parse(localStorage.getItem("panier"))
     //console.log(panier)
-    if (panier !== null){
+    if (panier !== null) {
         for (let i in panier) {
             const lineElt = creerElement("tr", "basket__recap--row")
             const nameElt = creerElement("td", "basket__recap--name", panier[i].nom)
             const priceElt = creerElement("td", "basket__recap--price", panier[i].prix)
             const quantityElt = creerElement("td", "basket__recap--qty", "qte : " + panier[i].qte)
-            const deleteElt = creerElement("button", "basket__recap--supr", "Supprimer" )
-            deleteElt.addEventListener("click", function(){
+            const deleteElt = creerElement("button", "basket__recap--supr", "Supprimer")
+            deleteElt.addEventListener("click", function () {
                 supprArticlePanier(i)
                 recapPanier(container, priceTotal)
             })
@@ -147,8 +173,8 @@ const recapPanier = (container, priceTotal) => {
 const totalPanierCalcul = () => {
     const prices = document.getElementsByClassName("basket__recap--price")
     let priceTotal = 0
-    for (let price of prices){
-        priceTotal += parseInt(price.textContent)   
+    for (let price of prices) {
+        priceTotal += parseInt(price.textContent)
     }
     return priceTotal
 }
@@ -210,7 +236,7 @@ const remplirBonCommande = () => {
 const validerCommande = (data) => {
     const price = parseInt(document.getElementById("basketTotal").textContent)
     const id = data.orderId
-    const command = {prix : price, id : id}
+    const command = { prix: price, id: id }
     localStorage.setItem("commande", JSON.stringify(command))
 }
 

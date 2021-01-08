@@ -1,6 +1,8 @@
 
 const afficherCatalogue = () => {
 
+    addLoader("main", "loader")
+
     //affichage des oursons sur la page d'accueil
     const urlTeddies = "http://localhost:3000/api/teddies";
     getProduct(urlTeddies).then (listeProduits => {
