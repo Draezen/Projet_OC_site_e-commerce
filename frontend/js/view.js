@@ -68,13 +68,24 @@ const creerProduit = (infosProduit, produit) => {
     productPrice.textContent = prix(infosProduit.price/100);
 }
 
+let compteur = 1
+
+//compteur de click
+const compteurClick = () => {
+    return compteur ++
+}
+
 //message de confirmation d'ajout au panier
 const confirmationAjout = () => {
-    const confirmELt = document.getElementById("confirmAdd")
-    confirmELt.textContent = "Ourson ajouté au panier !"
+    const confirmELt = document.getElementById("confirmText")
+    const compteurElt = document.getElementById("counterClick")
+    compteurElt.textContent = compteurClick()
+    confirmELt.textContent = " Ourson(s) ajouté(s) au panier !"
     setTimeout (function() {
         confirmELt.textContent =""
-    }, 1000)
+        compteurElt.textContent=""
+        compteur = 1
+    }, 2000)
 }
 
 //Ajout du produit au panier

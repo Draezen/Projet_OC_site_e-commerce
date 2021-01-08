@@ -2,12 +2,6 @@ const urlOrder = "http://localhost:3000/api/teddies/order";
 const urlTeddies = "http://localhost:3000/api/teddies";
 
 
-//Vérification de l'état du serveur
-function etatServeur(url) {
-    const response = getProduct(url);
-    return response
-}
-
 //récapitulatif de la commande 
 
 const basketArticles = document.getElementById("basketArticles")
@@ -15,13 +9,7 @@ const basketTotal = document.getElementById("basketTotal")
 
 //création de la liste des produits dans le panier
 window.addEventListener("load", function () {
-    etatServeur(urlTeddies).then(response => {
-        if (response.name === "TypeError") {
-            messageErreur("main", "serverDown", "<h1>Problème de connexion !</h1> <h2> Veuillez réessayer dans quelques instants !</h2>")
-        } else {
-            recapPanier(basketArticles, basketTotal)
-        }
-    })
+    recapPanier(basketArticles, basketTotal)
 })
 
 const clearBasket = document.getElementById("basketClear");
@@ -38,24 +26,24 @@ clearBasket.addEventListener("click", function () {
 
 //nom
 document.getElementById("formLastName").addEventListener("blur", function (e) {
-    const regex = /^[A-Za-z\é\è\ê\-\ \ç\ï\ë\']+$/;
+    const regex = /^\S[a-zA-ZÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñÝý\-\ ]+$/;
     verifChampValide(e, regex, "Nom invalide", "helpLastName")
 })
 
 //prénom
 document.getElementById("formFirstName").addEventListener("blur", function (e) {
-    const regex = /^[A-Za-z\é\è\ê\-\ \ç\ï\ë\']+$/;
+    const regex = /^\S[a-zA-ZÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñÝý\-\ ]+$/;
     verifChampValide(e, regex, "Prénom invalide", "helpFirstName")
 })
 
 //adresse
 document.getElementById("formAddress").addEventListener("blur", function (e) {
-    const regex = /^[0-9A-Za-z\é\è\ê\-\ \ç\ï\ë\']+$/;
+    const regex = /^\S[\wÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñÝý\-\ ]+$/;
     verifChampValide(e, regex, "Adresse invalide", "helpAddress")
 })
 //ville
 document.getElementById("formCity").addEventListener("blur", function (e) {
-    const regex = /^[A-Za-z\é\è\ê\-\ \ç\ï\ë\']+$/;
+    const regex = /^\S[a-zA-ZÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñÝý\-\ ]+$/;
     verifChampValide(e, regex, "Ville invalide", "helpCity")
 })
 
@@ -67,18 +55,6 @@ document.getElementById("formEmail").addEventListener("blur", function (e) {
 })
 
 //Envoie de la commande
-function envoieCommande(url, data) {
-    const confirmationCommande = postOrder(url, data)
-    confirmationCommande.then (status => {
-        if (status ===500){
-            throw new Error("error")
-        }
-    })
-    .catch(function(e){
-        console.error(e);
-    })
-    return confirmationCommande
-}
 
 //vérification de la validation du formulaire
 validerFormulaire = (formValide) =>{
@@ -86,9 +62,13 @@ validerFormulaire = (formValide) =>{
         //completer la commande
         const order = remplirBonCommande()
         //Recupération de la confirmation de la commande
-        envoieCommande(urlOrder, order).then(returnData => {
-            validerCommande(returnData)
-            window.location.href = "./confirmation.html"
+        postOrder(urlOrder, order).then(returnData => {
+            if (returnData.name === "TypeError"){
+                messageErreur("main", "serverDown", "<h1>Problème de connexion !</h1> <h2> Veuillez réessayer dans quelques instants !</h2>")
+            }else {
+                validerCommande(returnData)
+                window.location.href = "./confirmation.html"
+            }
         })
     } else {
         document.getElementById("formInvalid").textContent = "Formulaire non valide ! Vérifiez les informations entrées.";

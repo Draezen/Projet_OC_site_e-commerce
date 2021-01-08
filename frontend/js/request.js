@@ -35,7 +35,9 @@ async function postOrder (url, data){
             return response.status
         }
     } catch(e) {
+        console.log("Problème avec l'opération fetch");
         console.error(e)
+        return(e)
     }
 }
 
