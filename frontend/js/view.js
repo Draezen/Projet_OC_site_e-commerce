@@ -1,14 +1,8 @@
-
 //affichage d'un message sur la page
 const messageErreur = (selector, id, content) => {
     let mainElt = document.querySelector(selector);
     mainElt.id = id
     mainElt.innerHTML = content;
-}
-
-//Mise en forme du prix avec l'internationalisation
-const prix = (prix) => {
-    return new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" }).format(prix)
 }
 
 //créer un noeud
@@ -36,8 +30,10 @@ const addLoader = (selector, id) => {
     mainElt.id = id
     const loaderHeadingElt = creerElement("h2", "", "loaderHeading", "Chargement")
     const loaderElt = creerElement("div", "lds-roller", `div${id}`)
+    //création des noeuds pour l'animation
     mainElt.appendChild(loaderHeadingElt)
     mainElt.appendChild(loaderElt)
+    //création des div pour l'animation
     for (let i = 0; i < 8; i++) {
         divElt = creerElement("div", "div__loader")
         loaderElt.appendChild(divElt)
@@ -48,6 +44,7 @@ const addLoader = (selector, id) => {
 const removeLoader = (id, product) => {
     const containerElt = document.getElementById(id)
     containerElt.id = `${product}Container`
+    //suppression des noeuds de l'animation
     document.getElementById("divloader").remove()
     document.getElementById("loaderHeading").remove()
 }
@@ -55,6 +52,7 @@ const removeLoader = (id, product) => {
 //création des carte OURSONS sur la page d'index
 const creerListeProduit = (listeProduits, produits) => {
 
+    //suppression de loader
     removeLoader("loader", produits)
 
     //récupération du container
@@ -82,20 +80,25 @@ const creerListeProduit = (listeProduits, produits) => {
 
 const creerProduit = (infosProduit, produit) => {
 
+    //suppression du loader
     removeLoader("loader", produit)
 
     //récupération du container
     const productElt = document.getElementById(`${produit}Container`);
+
     //création des éléments
 
     //Image ourson
+    //création des éléments
     const columnOneELt = creerElement("div", `${produit}__column-one`)
     const teddyImageElt = creerElement("img", "teddy__image", "", "", "", infosProduit.imageUrl)
     teddyImageElt.alt = "photo d'un ourson"
 
+    //ajout dans le DOM
     columnOneELt.appendChild(teddyImageElt)
     
     //Description
+    //création des éléments
     const columnTwoELt = creerElement("div", `${produit}__column-two`)
     const productNameElt = creerElement("h2", `${produit}__name`, "", infosProduit.name )
     const productAboutElt = creerElement("p", `${produit}__about`, "", infosProduit.description)
@@ -105,6 +108,7 @@ const creerProduit = (infosProduit, produit) => {
     const selectFormElt = creerElement("select", "", `${produit}Color`)
     selectFormElt.name = "color"
     
+    //remplissage de la selection des couleurs
     for (let color of infosProduit.colors) {
         const optionElt = document.createElement("option");
         optionElt.value = color;
@@ -112,24 +116,24 @@ const creerProduit = (infosProduit, produit) => {
         selectFormElt.appendChild(optionElt)
     }
 
+    //ajout dans le DOM
     productColorElt.appendChild(labelFormElt)
     productColorElt.appendChild(selectFormElt)
-    
+
     columnTwoELt.appendChild(productNameElt)
     columnTwoELt.appendChild(productAboutElt)
     columnTwoELt.appendChild(productColorElt)
 
     //Prix - ajout panier
-
+    //création des éléments
     const columnThreeELt = creerElement("div", `${produit}__column-three`)
     const productPriceHeadingElt = creerElement("h2", `${produit}__price--heading`, "", "Prix" )
     const productPriceElt = creerElement("p", `${produit}__price`, "", prix(infosProduit.price / 100))
     const productAddElt = creerElement("button", `${produit}__add`, "addToBAsket","Ajouter au panier")
 
-    productAddElt.addEventListener("click", function () {
-        //const name = document.getElementById("teddyName").textContent
-        //const price = document.getElementById("teddyPrice").textContent
-        const product = [{nom : productNameElt.textContent, prix : productPriceElt.textContent, qte : 1, id : id}]
+    //fonction ajout au panier sur le boutton
+    productAddElt.addEventListener("click", () => {
+        const product = [{nom : productNameElt.textContent, prix : productPriceElt.textContent, qte : 1, id : infosProduit._id}]
         ajoutPanier(product)
     })
 
@@ -137,6 +141,7 @@ const creerProduit = (infosProduit, produit) => {
     const counterClickElt = creerElement("span", "", "counterClick")
     const confirmTextElt = creerElement("span", "", "confirmText")
 
+    //Ajout dans le DOM
     productConfirmElt.appendChild(counterClickElt)
     productConfirmElt.appendChild(confirmTextElt)
 
@@ -149,93 +154,44 @@ const creerProduit = (infosProduit, produit) => {
     productElt.appendChild(columnTwoELt)
     productElt.appendChild(columnThreeELt)
 }
-/*
-//Remplisage de la page produit
-const creerProduit = (infosProduit, produit) => {
-
-    removeLoader("loader")
-
-    //récupération des champs à remplir
-    const productImage = document.getElementById(`${produit}Image`);
-    const productName = document.getElementById(`${produit}Name`);
-    const productAbout = document.getElementById(`${produit}About`);
-    const productColor = document.getElementById(`${produit}Color`);
-    const productPrice = document.getElementById(`${produit}Price`);
-
-    //remplissage des champs
-    productImage.src = infosProduit.imageUrl;
-    productName.textContent = infosProduit.name;
-    productAbout.textContent = infosProduit.description;
-    for (let color of infosProduit.colors) {
-        const optionElt = document.createElement("option");
-        optionElt.value = color;
-        optionElt.textContent = color;
-        productColor.appendChild(optionElt)
-    }
-    productPrice.textContent = prix(infosProduit.price / 100);
-}
-*/
-let compteur = 1
-
-//compteur de click
-const compteurClick = () => {
-    return compteur++
-}
 
 //message de confirmation d'ajout au panier
 const confirmationAjout = () => {
     const confirmELt = document.getElementById("confirmText")
     const compteurElt = document.getElementById("counterClick")
+    //création du message
     compteurElt.textContent = compteurClick()
     confirmELt.textContent = " Ourson(s) ajouté(s) au panier !"
-    setTimeout(function () {
+    //supprimer le message apres 2s
+    setTimeout( () => {
         confirmELt.textContent = ""
         compteurElt.textContent = ""
         compteur = 1
     }, 2000)
 }
 
-//Ajout du produit au panier
-const ajoutPanier = (product) => {
-    if (localStorage.getItem("panier") !== null) {
-        //concaténation du produit à ajouter avec le panier en local storage
-        const panier = product.concat(JSON.parse(localStorage.getItem("panier")))
-        //enregistrement du panier mis à jour dans le local storage 
-        localStorage.setItem("panier", JSON.stringify(panier))
-    } else {
-        localStorage.setItem("panier", JSON.stringify(product))
-    }
-    confirmationAjout()
-}
-
-//Suppression d'un article du panier
-const supprArticlePanier = (article) => {
-    let panier = JSON.parse(localStorage.getItem("panier"))
-    if (panier.length > 1) {
-        panier.splice(article, 1)
-        localStorage.setItem("panier", JSON.stringify(panier))
-    } else {
-        localStorage.clear()
-    }
-}
 
 //affichages des produits dans le panier
 const recapPanier = (container, priceTotal) => {
     container.innerHTML = ""
     const panier = JSON.parse(localStorage.getItem("panier"))
-    //console.log(panier)
     if (panier !== null) {
+        //si panier non vide
         for (let i in panier) {
+            //création de la liste de produits
             const lineElt = creerElement("tr", "basket__recap--row")
             const nameElt = creerElement("td", "basket__recap--name", "", panier[i].nom)
             const priceElt = creerElement("td", "basket__recap--price", "", panier[i].prix)
             const quantityElt = creerElement("td", "basket__recap--qty", "", "qte : " + panier[i].qte)
             const deleteElt = creerElement("button", "basket__recap--supr", "", "Supprimer")
-            deleteElt.addEventListener("click", function () {
+            //fonction suppression d'un article du panier
+            deleteElt.addEventListener("click", () => {
                 supprArticlePanier(i)
+                //recréation du panier
                 recapPanier(container, priceTotal)
             })
 
+            //ajout dans le DOM
             lineElt.appendChild(nameElt)
             lineElt.appendChild(priceElt)
             lineElt.appendChild(quantityElt)
@@ -246,84 +202,7 @@ const recapPanier = (container, priceTotal) => {
         //affichage message panier vide
         messageErreur("main", "basketEmpty", "<h1>Votre panier est vide !</h1><h2>Veuillez ajouter des articles !</h2>")
     }
+    //calcul du prix total
     totalPanierAffichage(priceTotal)
 }
 
-
-//calculer le prix total du panier
-const totalPanierCalcul = () => {
-    const prices = document.getElementsByClassName("basket__recap--price")
-    let priceTotal = 0
-    for (let price of prices) {
-        priceTotal += parseInt(price.textContent)
-    }
-    return priceTotal
-}
-
-//Afficher le prix total du panier
-const totalPanierAffichage = (container) => {
-    const priceTotal = totalPanierCalcul()
-    container.textContent = prix(priceTotal)
-}
-
-//Vérification saisie
-const verifRegexChamp = (champ, regex) => {
-    if (!regex.test(champ.target.value)) {
-        return false;
-    }
-}
-
-//Validation d'un champ du formulaire
-const verifChampValide = (champ, regex, help, id) => {
-    let formHelp = "";
-    const valide = verifRegexChamp(champ, regex)
-    if (valide == false) {
-        formHelp = help;
-        document.getElementById(id).classList.remove("valide")
-    } else {
-        formHelp = "\u00A0";
-        document.getElementById(id).classList.add("valide")
-        document.getElementById("formInvalid").textContent = formHelp
-    }
-    document.getElementById(id).textContent = formHelp;
-}
-
-//Récupérer les id des produit à commander
-const ajouterIdCommande = (products) => {
-    const panier = JSON.parse(localStorage.getItem("panier"))
-    panier.forEach(produit => {
-        products.push(produit.id)
-    })
-    return products
-}
-
-//Remplir la commande
-const remplirBonCommande = () => {
-    const order = {
-        contact: {
-            firstName: form.elements.formFirstName.value,
-            lastName: form.elements.formLastName.value,
-            address: form.elements.formAddress.value,
-            city: form.elements.formCity.value,
-            email: form.elements.formEmail.value
-        },
-        products: []
-    }
-    ajouterIdCommande(order.products)
-    return order
-}
-
-//enregistrement de l'id et du prix
-const validerCommande = (data) => {
-    const price = parseInt(document.getElementById("basketTotal").textContent)
-    const id = data.orderId
-    const command = { prix: price, id: id }
-    localStorage.setItem("commande", JSON.stringify(command))
-}
-
-//récupération de la validation de commande
-const afficherValidationCommande = () => {
-    const command = JSON.parse(localStorage.getItem("commande"))
-    document.getElementById("orderPrice").textContent = prix(command.prix)
-    document.getElementById("orderId").textContent = command.id
-}
