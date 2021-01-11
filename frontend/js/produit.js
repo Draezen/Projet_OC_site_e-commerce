@@ -22,7 +22,7 @@ const recupererProduit = (url) => {
 
 const afficherProduit = () =>{
 
-    addLoader("main", "loader")
+    addLoader("teddyContainer", "loader")
 
     //affichage de l'ourson sur la page produit
     recupererProduit(urlTeddy).then (infosProduit => {
@@ -34,7 +34,7 @@ const afficherProduit = () =>{
     })
 }
 
-
+/*
 //ajout de l'ourson au panier
 addToBasketButton.addEventListener("click", function () {
     const name = document.getElementById("teddyName").textContent
@@ -42,5 +42,6 @@ addToBasketButton.addEventListener("click", function () {
     const product = [{nom : name, prix : price, qte : 1, id : id}]
     ajoutPanier(product)
 })
+*/
 
 afficherProduit()

@@ -12,9 +12,18 @@ const prix = (prix) => {
 }
 
 //créer un noeud
-const creerElement = (elem, classe, textContent, href, src) => {
+const creerElement = (elem, classe, id, textContent, href, src) => {
     const node = document.createElement(elem);
-    node.className = classe;
+    if (classe !== undefined){
+        if(classe.length > 0){
+            node.className = classe;
+        }
+    }
+    if (id !== undefined){
+        if(id.length > 0){
+            node.id = id;
+        }
+    }
     node.textContent = textContent;
     node.href = href;
     node.src = src;
@@ -23,11 +32,11 @@ const creerElement = (elem, classe, textContent, href, src) => {
 
 //création loader
 const addLoader = (selector, id) => {
-    const mainElt = document.querySelector(selector)
-    //mainElt.innerHTML = ""
+    const mainElt = document.getElementById(selector)
     mainElt.id = id
-    loaderElt = creerElement("div", "lds-roller")
-    loaderElt.id = `div${id}`
+    const loaderHeadingElt = creerElement("h2", "", "loaderHeading", "Chargement")
+    const loaderElt = creerElement("div", "lds-roller", `div${id}`)
+    mainElt.appendChild(loaderHeadingElt)
     mainElt.appendChild(loaderElt)
     for (let i = 0; i < 8; i++) {
         divElt = creerElement("div", "div__loader")
@@ -36,16 +45,17 @@ const addLoader = (selector, id) => {
 }
 
 //Suppression loader
-const removeLoader = (id) => {
+const removeLoader = (id, product) => {
     const containerElt = document.getElementById(id)
-    containerElt.removeAttribute("id")
+    containerElt.id = `${product}Container`
     document.getElementById("divloader").remove()
+    document.getElementById("loaderHeading").remove()
 }
 
 //création des carte OURSONS sur la page d'index
 const creerListeProduit = (listeProduits, produits) => {
 
-    removeLoader("loader")
+    removeLoader("loader", produits)
 
     //récupération du container
     const productsElt = document.getElementById(`${produits}Container`);
@@ -54,10 +64,10 @@ const creerListeProduit = (listeProduits, produits) => {
 
         // création des cartes
         const productElt = creerElement("article", `${produits}__card`)
-        const productLink = creerElement("a", `${produits}__link`, "", "produit.html?id=" + produit._id)
-        const productImage = creerElement("img", `${produits}__image`, "", "", produit.imageUrl)
-        const productName = creerElement("h2", `${produits}__name`, produit.name)
-        const productPrice = creerElement("p", `${produits}__price`, prix(produit.price / 100))
+        const productLink = creerElement("a", `${produits}__link`, "", "", "produit.html?id=" + produit._id)
+        const productImage = creerElement("img", `${produits}__image`, "", "", "", produit.imageUrl)
+        const productName = creerElement("h2", `${produits}__name`, "", produit.name)
+        const productPrice = creerElement("p", `${produits}__price`, "", prix(produit.price / 100))
 
         //ajout dans le DOM
         productElt.appendChild(productLink);
@@ -69,6 +79,77 @@ const creerListeProduit = (listeProduits, produits) => {
     });
 }
 
+
+const creerProduit = (infosProduit, produit) => {
+
+    removeLoader("loader", produit)
+
+    //récupération du container
+    const productElt = document.getElementById(`${produit}Container`);
+    //création des éléments
+
+    //Image ourson
+    const columnOneELt = creerElement("div", `${produit}__column-one`)
+    const teddyImageElt = creerElement("img", "teddy__image", "", "", "", infosProduit.imageUrl)
+    teddyImageElt.alt = "photo d'un ourson"
+
+    columnOneELt.appendChild(teddyImageElt)
+    
+    //Description
+    const columnTwoELt = creerElement("div", `${produit}__column-two`)
+    const productNameElt = creerElement("h2", `${produit}__name`, "", infosProduit.name )
+    const productAboutElt = creerElement("p", `${produit}__about`, "", infosProduit.description)
+    const productColorElt = creerElement("form", `${produit}__color`, `${produit}Form`)
+    const labelFormElt = creerElement("label", "", "Couleurs : ")
+    labelFormElt.setAttribute ("for", `${produit}Color`)
+    const selectFormElt = creerElement("select", "", `${produit}Color`)
+    selectFormElt.name = "color"
+    
+    for (let color of infosProduit.colors) {
+        const optionElt = document.createElement("option");
+        optionElt.value = color;
+        optionElt.textContent = color;
+        selectFormElt.appendChild(optionElt)
+    }
+
+    productColorElt.appendChild(labelFormElt)
+    productColorElt.appendChild(selectFormElt)
+    
+    columnTwoELt.appendChild(productNameElt)
+    columnTwoELt.appendChild(productAboutElt)
+    columnTwoELt.appendChild(productColorElt)
+
+    //Prix - ajout panier
+
+    const columnThreeELt = creerElement("div", `${produit}__column-three`)
+    const productPriceHeadingElt = creerElement("h2", `${produit}__price--heading`, "", "Prix" )
+    const productPriceElt = creerElement("p", `${produit}__price`, "", prix(infosProduit.price / 100))
+    const productAddElt = creerElement("button", `${produit}__add`, "addToBAsket","Ajouter au panier")
+
+    productAddElt.addEventListener("click", function () {
+        //const name = document.getElementById("teddyName").textContent
+        //const price = document.getElementById("teddyPrice").textContent
+        const product = [{nom : productNameElt.textContent, prix : productPriceElt.textContent, qte : 1, id : id}]
+        ajoutPanier(product)
+    })
+
+    const productConfirmElt = creerElement("p", `${produit}__confirm`, "confirmAdd")
+    const counterClickElt = creerElement("span", "", "counterClick")
+    const confirmTextElt = creerElement("span", "", "confirmText")
+
+    productConfirmElt.appendChild(counterClickElt)
+    productConfirmElt.appendChild(confirmTextElt)
+
+    columnThreeELt.appendChild(productPriceHeadingElt)
+    columnThreeELt.appendChild(productPriceElt)
+    columnThreeELt.appendChild(productAddElt)
+    columnThreeELt.appendChild(productConfirmElt)
+
+    productElt.appendChild(columnOneELt)
+    productElt.appendChild(columnTwoELt)
+    productElt.appendChild(columnThreeELt)
+}
+/*
 //Remplisage de la page produit
 const creerProduit = (infosProduit, produit) => {
 
@@ -93,7 +174,7 @@ const creerProduit = (infosProduit, produit) => {
     }
     productPrice.textContent = prix(infosProduit.price / 100);
 }
-
+*/
 let compteur = 1
 
 //compteur de click
@@ -146,10 +227,10 @@ const recapPanier = (container, priceTotal) => {
     if (panier !== null) {
         for (let i in panier) {
             const lineElt = creerElement("tr", "basket__recap--row")
-            const nameElt = creerElement("td", "basket__recap--name", panier[i].nom)
-            const priceElt = creerElement("td", "basket__recap--price", panier[i].prix)
-            const quantityElt = creerElement("td", "basket__recap--qty", "qte : " + panier[i].qte)
-            const deleteElt = creerElement("button", "basket__recap--supr", "Supprimer")
+            const nameElt = creerElement("td", "basket__recap--name", "", panier[i].nom)
+            const priceElt = creerElement("td", "basket__recap--price", "", panier[i].prix)
+            const quantityElt = creerElement("td", "basket__recap--qty", "", "qte : " + panier[i].qte)
+            const deleteElt = creerElement("button", "basket__recap--supr", "", "Supprimer")
             deleteElt.addEventListener("click", function () {
                 supprArticlePanier(i)
                 recapPanier(container, priceTotal)
