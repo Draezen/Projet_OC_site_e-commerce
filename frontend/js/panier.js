@@ -30,7 +30,7 @@ viderPanier()
 
 //nom
 document.getElementById("formLastName").addEventListener("blur", (e) => {
-    //lettres + accents + - et espace
+    //lettres + accents, -, ' et espace
     const regex = /^\S[a-zA-ZÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñÝý\-\ \']+$/;
     verifChampValide(e, regex, "Nom invalide", "helpLastName")
 })
@@ -72,8 +72,17 @@ const validerFormulaire = (form) =>{
         const urlOrder = "http://localhost:3000/api/teddies/order";
         const order = remplirBonCommande(form)
 
+        const init = {
+            method : "POST",
+            headers : {
+                "Content-Type" : "application/json"
+            },
+            body : JSON.stringify(order)
+        }
+        const postCommande = new Requete(urlOrder, init)
+
         //Recupération de la confirmation de la commande
-        postOrder(urlOrder, order).then(returnData => {
+        postCommande.requete().then(returnData => {
             if (returnData.name === "TypeError"){
                 messageErreur("main", "serverDown", "<h1>Problème de connexion !</h1> <h2> Veuillez réessayer dans quelques instants !</h2>")
             }else {

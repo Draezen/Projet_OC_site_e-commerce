@@ -1,7 +1,7 @@
 
 //récupération des infos de l'ourson
 const recupererProduit = (url) => {
-    const response = getProduct(url);
+    const response = new Requete(url).requete();
     response.then (status => {
         if (status === 500){
             throw new Error("error")

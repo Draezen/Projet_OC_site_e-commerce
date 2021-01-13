@@ -1,4 +1,4 @@
-
+/*
 //requêtte GET
 async function getProduct (url) {
     try{
@@ -16,8 +16,8 @@ async function getProduct (url) {
         return e
     }
 }
-
-
+*/
+/*
 //requette POST
 async function postOrder (url, data){
     try{
@@ -40,4 +40,26 @@ async function postOrder (url, data){
         return(e)
     }
 }
+*/
+class Requete {
+    constructor(url, init){
+        this.url = url;
+        this.init = init;
+    }
 
+    async requete () {
+        try{
+            const response = await fetch(this.url, this.init)
+            if (response.ok) {
+                const data = await response.json()
+                return data
+            } else {
+                return response.status
+            }
+        } catch(e) {
+            console.log("Problème avec l'opération fetch");
+            console.error(e)
+            return e
+        }
+    }
+}

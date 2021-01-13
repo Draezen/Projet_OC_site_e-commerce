@@ -4,6 +4,25 @@ const messageErreur = (selector, id, content) => {
     mainElt.id = id
     mainElt.innerHTML = content;
 }
+/*
+class DOM {
+    constructor(elem, classe, id, textContent, href, src){
+        this.elem = elem;
+        if (classe) this.classe = classe;
+        if (id) this.id = id;
+        this.textContent = textContent;
+        this.href = href;
+        this.src = src;
+    }
+
+    creerElement(tag){
+        const element = document.createElement(tag)
+    }
+
+    selectionnerElement(selecteur){
+        return document.querySelector(selecteur) 
+    }
+}*/
 
 //créer un noeud
 const creerElement = (elem, classe, id, textContent, href, src) => {
@@ -69,9 +88,7 @@ const creerListeProduit = (listeProduits, produits) => {
 
         //ajout dans le DOM
         productElt.appendChild(productLink);
-        productLink.appendChild(productImage);
-        productLink.appendChild(productName);
-        productLink.appendChild(productPrice);
+        productLink.append(productImage, productName, productPrice);
         productsElt.appendChild(productElt);
 
     });
@@ -117,12 +134,9 @@ const creerProduit = (infosProduit, produit) => {
     }
 
     //ajout dans le DOM
-    productColorElt.appendChild(labelFormElt)
-    productColorElt.appendChild(selectFormElt)
+    productColorElt.append(labelFormElt,selectFormElt)
 
-    columnTwoELt.appendChild(productNameElt)
-    columnTwoELt.appendChild(productAboutElt)
-    columnTwoELt.appendChild(productColorElt)
+    columnTwoELt.append(productNameElt, productAboutElt,productColorElt)
 
     //Prix - ajout panier
     //création des éléments
@@ -142,17 +156,11 @@ const creerProduit = (infosProduit, produit) => {
     const confirmTextElt = creerElement("span", "", "confirmText")
 
     //Ajout dans le DOM
-    productConfirmElt.appendChild(counterClickElt)
-    productConfirmElt.appendChild(confirmTextElt)
+    productConfirmElt.append(counterClickElt, confirmTextElt)
 
-    columnThreeELt.appendChild(productPriceHeadingElt)
-    columnThreeELt.appendChild(productPriceElt)
-    columnThreeELt.appendChild(productAddElt)
-    columnThreeELt.appendChild(productConfirmElt)
+    columnThreeELt.append(productPriceHeadingElt, productPriceElt, productAddElt, productConfirmElt)
 
-    productElt.appendChild(columnOneELt)
-    productElt.appendChild(columnTwoELt)
-    productElt.appendChild(columnThreeELt)
+    productElt.append(columnOneELt, columnTwoELt, columnThreeELt)
 }
 
 //message de confirmation d'ajout au panier
@@ -192,10 +200,7 @@ const recapPanier = (container, priceTotal) => {
             })
 
             //ajout dans le DOM
-            lineElt.appendChild(nameElt)
-            lineElt.appendChild(priceElt)
-            lineElt.appendChild(quantityElt)
-            lineElt.appendChild(deleteElt)
+            lineElt.append(nameElt, priceElt, quantityElt, deleteElt)
             container.appendChild(lineElt)
         }
     } else {
