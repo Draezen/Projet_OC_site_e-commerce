@@ -3,8 +3,8 @@
 
 //création de la liste des produits dans le panier
 const creerListeProduits = () => {
-    const basketArticles = document.getElementById("basketArticles")
-    const basketTotal = document.getElementById("basketTotal")
+    const basketArticles = new View().selectionnerElement("#basketArticles")
+    const basketTotal = new View().selectionnerElement("#basketTotal")
     recapPanier(basketArticles, basketTotal)
 }
 
@@ -14,10 +14,10 @@ window.addEventListener("load", creerListeProduits)
 //vider tout el panier
 const viderPanier = () => {
 
-    const clearBasket = document.getElementById("basketClear");
+    const clearBasket = new View().selectionnerElement("#basketClear");
 
     clearBasket.addEventListener("click", () => {
-        localStorage.clear()
+        new Panier().vider()
         creerListeProduits()
     })
 }

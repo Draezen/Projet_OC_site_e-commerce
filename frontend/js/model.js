@@ -1,4 +1,31 @@
 
+class Panier {
+    constructor(){}
+
+    ajouter(produit){
+        const panierStorage = new LocalStorage("panier")
+        panierStorage.creer(produit)
+    }
+
+    supprimer(article){
+        const panierStorage = new LocalStorage("panier")
+        panierStorage.supprimer(article)
+    }
+
+    vider(){
+        const panierStorage = new LocalStorage()
+        panierStorage.vider()
+    }
+
+    afficher(){
+
+    }
+
+    calculerTotal(){
+
+    }
+}
+
 let compteur = 1
 
 //compteur de click

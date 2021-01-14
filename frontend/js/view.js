@@ -1,67 +1,53 @@
+class View {
+    constructor() {}
+
+    creerElement(tag, className, id, textContent, href, src){
+        const element = document.createElement(tag)
+        element.tag = tag;
+        if (className) element.className = className;
+        if (id) element.id = id;
+        element.textContent = textContent;
+        element.href = href;
+        element.src = src;
+        return element
+    }
+
+    supprimerElement(selecteur){
+        selecteur.remove()
+    }
+
+    selectionnerElement(selecteur){
+        return document.querySelector(selecteur) 
+    }
+}
+
 //affichage d'un message sur la page
 const messageErreur = (selector, id, content) => {
     let mainElt = document.querySelector(selector);
     mainElt.id = id
     mainElt.innerHTML = content;
 }
-/*
-class DOM {
-    constructor(elem, classe, id, textContent, href, src){
-        this.elem = elem;
-        if (classe) this.classe = classe;
-        if (id) this.id = id;
-        this.textContent = textContent;
-        this.href = href;
-        this.src = src;
-    }
 
-    creerElement(tag){
-        const element = document.createElement(tag)
-    }
-
-    selectionnerElement(selecteur){
-        return document.querySelector(selecteur) 
-    }
-}*/
-
-//créer un noeud
-const creerElement = (elem, classe, id, textContent, href, src) => {
-    const node = document.createElement(elem);
-    if (classe !== undefined){
-        if(classe.length > 0){
-            node.className = classe;
-        }
-    }
-    if (id !== undefined){
-        if(id.length > 0){
-            node.id = id;
-        }
-    }
-    node.textContent = textContent;
-    node.href = href;
-    node.src = src;
-    return node
-}
 
 //création loader
-const addLoader = (selector, id) => {
-    const mainElt = document.getElementById(selector)
+const addLoader = (selecteur, id) => {
+    const mainElt = new View().selectionnerElement(selecteur)
     mainElt.id = id
-    const loaderHeadingElt = creerElement("h2", "", "loaderHeading", "Chargement")
-    const loaderElt = creerElement("div", "lds-roller", `div${id}`)
+    const loaderHeadingElt = new View().creerElement("h2", "", "loaderHeading", "Chargement")
+    const loaderElt = new View().creerElement("div", "lds-roller", `div${id}`)
     //création des noeuds pour l'animation
     mainElt.appendChild(loaderHeadingElt)
     mainElt.appendChild(loaderElt)
     //création des div pour l'animation
     for (let i = 0; i < 8; i++) {
-        divElt = creerElement("div", "div__loader")
+        divElt = new View().creerElement("div", "div__loader")
         loaderElt.appendChild(divElt)
     }
 }
 
 //Suppression loader
-const removeLoader = (id, product) => {
-    const containerElt = document.getElementById(id)
+const removeLoader = (selecteur, product) => {
+    const containerElt = new View().selectionnerElement(selecteur)
     containerElt.id = `${product}Container`
     //suppression des noeuds de l'animation
     document.getElementById("divloader").remove()
@@ -72,19 +58,20 @@ const removeLoader = (id, product) => {
 const creerListeProduit = (listeProduits, produits) => {
 
     //suppression de loader
-    removeLoader("loader", produits)
+    removeLoader("#loader", produits)
 
     //récupération du container
-    const productsElt = document.getElementById(`${produits}Container`);
+    //const productsElt = document.getElementById(`${produits}Container`);
+    const productsElt = new View().selectionnerElement(`#${produits}Container`)
     //création des éléments
     listeProduits.forEach(produit => {
 
         // création des cartes
-        const productElt = creerElement("article", `${produits}__card`)
-        const productLink = creerElement("a", `${produits}__link`, "", "", "produit.html?id=" + produit._id)
-        const productImage = creerElement("img", `${produits}__image`, "", "", "", produit.imageUrl)
-        const productName = creerElement("h2", `${produits}__name`, "", produit.name)
-        const productPrice = creerElement("p", `${produits}__price`, "", prix(produit.price / 100))
+        const productElt = new View().creerElement("article", `${produits}__card`)
+        const productLink = new View().creerElement("a", `${produits}__link`, "", "", "produit.html?id=" + produit._id)
+        const productImage = new View().creerElement("img", `${produits}__image`, "", "", "", produit.imageUrl)
+        const productName = new View().creerElement("h2", `${produits}__name`, "", produit.name)
+        const productPrice = new View().creerElement("p", `${produits}__price`, "", prix(produit.price / 100))
 
         //ajout dans le DOM
         productElt.appendChild(productLink);
@@ -98,17 +85,17 @@ const creerListeProduit = (listeProduits, produits) => {
 const creerProduit = (infosProduit, produit) => {
 
     //suppression du loader
-    removeLoader("loader", produit)
+    removeLoader("#loader", produit)
 
     //récupération du container
-    const productElt = document.getElementById(`${produit}Container`);
+    const productElt = new View().selectionnerElement(`#${produit}Container`);
 
     //création des éléments
 
     //Image ourson
     //création des éléments
-    const columnOneELt = creerElement("div", `${produit}__column-one`)
-    const teddyImageElt = creerElement("img", "teddy__image", "", "", "", infosProduit.imageUrl)
+    const columnOneELt = new View().creerElement("div", `${produit}__column-one`)
+    const teddyImageElt = new View().creerElement("img", "teddy__image", "", "", "", infosProduit.imageUrl)
     teddyImageElt.alt = "photo d'un ourson"
 
     //ajout dans le DOM
@@ -116,20 +103,19 @@ const creerProduit = (infosProduit, produit) => {
     
     //Description
     //création des éléments
-    const columnTwoELt = creerElement("div", `${produit}__column-two`)
-    const productNameElt = creerElement("h2", `${produit}__name`, "", infosProduit.name )
-    const productAboutElt = creerElement("p", `${produit}__about`, "", infosProduit.description)
-    const productColorElt = creerElement("form", `${produit}__color`, `${produit}Form`)
-    const labelFormElt = creerElement("label", "", "Couleurs : ")
+    const columnTwoELt = new View().creerElement("div", `${produit}__column-two`)
+    const productNameElt = new View().creerElement("h2", `${produit}__name`, "", infosProduit.name )
+    const productAboutElt = new View().creerElement("p", `${produit}__about`, "", infosProduit.description)
+    const productColorElt = new View().creerElement("form", `${produit}__color`, `${produit}Form`)
+    const labelFormElt = new View().creerElement("label", "", "Couleurs : ")
     labelFormElt.setAttribute ("for", `${produit}Color`)
-    const selectFormElt = creerElement("select", "", `${produit}Color`)
+    const selectFormElt = new View().creerElement("select", "", `${produit}Color`)
     selectFormElt.name = "color"
     
     //remplissage de la selection des couleurs
     for (let color of infosProduit.colors) {
-        const optionElt = document.createElement("option");
+        const optionElt = new View().creerElement("option", "", "", color);
         optionElt.value = color;
-        optionElt.textContent = color;
         selectFormElt.appendChild(optionElt)
     }
 
@@ -140,20 +126,21 @@ const creerProduit = (infosProduit, produit) => {
 
     //Prix - ajout panier
     //création des éléments
-    const columnThreeELt = creerElement("div", `${produit}__column-three`)
-    const productPriceHeadingElt = creerElement("h2", `${produit}__price--heading`, "", "Prix" )
-    const productPriceElt = creerElement("p", `${produit}__price`, "", prix(infosProduit.price / 100))
-    const productAddElt = creerElement("button", `${produit}__add`, "addToBAsket","Ajouter au panier")
+    const columnThreeELt = new View().creerElement("div", `${produit}__column-three`)
+    const productPriceHeadingElt = new View().creerElement("h2", `${produit}__price--heading`, "", "Prix" )
+    const productPriceElt = new View().creerElement("p", `${produit}__price`, "", prix(infosProduit.price / 100))
+    const productAddElt = new View().creerElement("button", `${produit}__add`, "addToBAsket","Ajouter au panier")
 
     //fonction ajout au panier sur le boutton
     productAddElt.addEventListener("click", () => {
         const product = [{nom : productNameElt.textContent, prix : productPriceElt.textContent, qte : 1, id : infosProduit._id}]
-        ajoutPanier(product)
+        new Panier().ajouter(product)
+        confirmationAjout()
     })
 
-    const productConfirmElt = creerElement("p", `${produit}__confirm`, "confirmAdd")
-    const counterClickElt = creerElement("span", "", "counterClick")
-    const confirmTextElt = creerElement("span", "", "confirmText")
+    const productConfirmElt = new View().creerElement("p", `${produit}__confirm`, "confirmAdd")
+    const counterClickElt = new View().creerElement("span", "", "counterClick")
+    const confirmTextElt = new View().creerElement("span", "", "confirmText")
 
     //Ajout dans le DOM
     productConfirmElt.append(counterClickElt, confirmTextElt)
@@ -165,8 +152,8 @@ const creerProduit = (infosProduit, produit) => {
 
 //message de confirmation d'ajout au panier
 const confirmationAjout = () => {
-    const confirmELt = document.getElementById("confirmText")
-    const compteurElt = document.getElementById("counterClick")
+    const confirmELt = new View().selectionnerElement("#confirmText")
+    const compteurElt = new View().selectionnerElement("#counterClick")
     //création du message
     compteurElt.textContent = compteurClick()
     confirmELt.textContent = " Ourson(s) ajouté(s) au panier !"
@@ -182,19 +169,19 @@ const confirmationAjout = () => {
 //affichages des produits dans le panier
 const recapPanier = (container, priceTotal) => {
     container.innerHTML = ""
-    const panier = JSON.parse(localStorage.getItem("panier"))
+    const panier = new LocalStorage("panier").lire()
     if (panier !== null) {
         //si panier non vide
         for (let i in panier) {
             //création de la liste de produits
-            const lineElt = creerElement("tr", "basket__recap--row")
-            const nameElt = creerElement("td", "basket__recap--name", "", panier[i].nom)
-            const priceElt = creerElement("td", "basket__recap--price", "", panier[i].prix)
-            const quantityElt = creerElement("td", "basket__recap--qty", "", "qte : " + panier[i].qte)
-            const deleteElt = creerElement("button", "basket__recap--supr", "", "Supprimer")
+            const lineElt = new View().creerElement("tr", "basket__recap--row")
+            const nameElt = new View().creerElement("td", "basket__recap--name", "", panier[i].nom)
+            const priceElt = new View().creerElement("td", "basket__recap--price", "", panier[i].prix)
+            const quantityElt = new View().creerElement("td", "basket__recap--qty", "", "qte : " + panier[i].qte)
+            const deleteElt = new View().creerElement("button", "basket__recap--supr", "", "Supprimer")
             //fonction suppression d'un article du panier
             deleteElt.addEventListener("click", () => {
-                supprArticlePanier(i)
+                new Panier().supprimer(i)
                 //recréation du panier
                 recapPanier(container, priceTotal)
             })

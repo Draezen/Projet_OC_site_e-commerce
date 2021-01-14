@@ -22,7 +22,7 @@ const afficherProduit = () =>{
     const urlTeddies = "http://localhost:3000/api/teddies";
     const urlTeddy = urlTeddies + "/" + id;
 
-    addLoader("teddyContainer", "loader")
+    addLoader("#teddyContainer", "loader")
 
     //affichage de l'ourson sur la page produit
     recupererProduit(urlTeddy).then (infosProduit => {
