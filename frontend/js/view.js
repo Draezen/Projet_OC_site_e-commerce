@@ -19,6 +19,33 @@ class View {
     selectionnerElement(selecteur){
         return document.querySelector(selecteur) 
     }
+
+    creerListeProduit = (listeProduits, produits) => {
+
+        //suppression de loader
+        removeLoader("#loader", produits)
+    
+        //récupération du container
+        //const productsElt = document.getElementById(`${produits}Container`);
+        const productsElt = this.selectionnerElement(`#${produits}Container`)
+        //création des éléments
+        listeProduits.forEach(produit => {
+    
+            // création des cartes
+            const productElt = this.creerElement("article", `${produits}__card`)
+            const productLink = this.creerElement("a", `${produits}__link`, "", "", "produit.html?id=" + produit._id)
+            const productImage = this.creerElement("img", `${produits}__image`, "", "", "", produit.imageUrl)
+            const productName = this.creerElement("h2", `${produits}__name`, "", produit.name)
+            const productPrice = this.creerElement("p", `${produits}__price`, "", prix(produit.price / 100))
+    
+            //ajout dans le DOM
+            productElt.appendChild(productLink);
+            productLink.append(productImage, productName, productPrice);
+            productsElt.appendChild(productElt);
+    
+        });
+    }
+    
 }
 
 //affichage d'un message sur la page
@@ -54,32 +81,32 @@ const removeLoader = (selecteur, product) => {
     document.getElementById("loaderHeading").remove()
 }
 
-//création des carte OURSONS sur la page d'index
-const creerListeProduit = (listeProduits, produits) => {
+// //création des carte OURSONS sur la page d'index
+// const creerListeProduit = (listeProduits, produits) => {
 
-    //suppression de loader
-    removeLoader("#loader", produits)
+//     //suppression de loader
+//     removeLoader("#loader", produits)
 
-    //récupération du container
-    //const productsElt = document.getElementById(`${produits}Container`);
-    const productsElt = new View().selectionnerElement(`#${produits}Container`)
-    //création des éléments
-    listeProduits.forEach(produit => {
+//     //récupération du container
+//     //const productsElt = document.getElementById(`${produits}Container`);
+//     const productsElt = new View().selectionnerElement(`#${produits}Container`)
+//     //création des éléments
+//     listeProduits.forEach(produit => {
 
-        // création des cartes
-        const productElt = new View().creerElement("article", `${produits}__card`)
-        const productLink = new View().creerElement("a", `${produits}__link`, "", "", "produit.html?id=" + produit._id)
-        const productImage = new View().creerElement("img", `${produits}__image`, "", "", "", produit.imageUrl)
-        const productName = new View().creerElement("h2", `${produits}__name`, "", produit.name)
-        const productPrice = new View().creerElement("p", `${produits}__price`, "", prix(produit.price / 100))
+//         // création des cartes
+//         const productElt = new View().creerElement("article", `${produits}__card`)
+//         const productLink = new View().creerElement("a", `${produits}__link`, "", "", "produit.html?id=" + produit._id)
+//         const productImage = new View().creerElement("img", `${produits}__image`, "", "", "", produit.imageUrl)
+//         const productName = new View().creerElement("h2", `${produits}__name`, "", produit.name)
+//         const productPrice = new View().creerElement("p", `${produits}__price`, "", prix(produit.price / 100))
 
-        //ajout dans le DOM
-        productElt.appendChild(productLink);
-        productLink.append(productImage, productName, productPrice);
-        productsElt.appendChild(productElt);
+//         //ajout dans le DOM
+//         productElt.appendChild(productLink);
+//         productLink.append(productImage, productName, productPrice);
+//         productsElt.appendChild(productElt);
 
-    });
-}
+//     });
+// }
 
 
 const creerProduit = (infosProduit, produit) => {
