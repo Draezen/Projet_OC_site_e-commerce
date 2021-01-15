@@ -81,6 +81,13 @@ const removeLoader = (selecteur, product) => {
     document.getElementById("loaderHeading").remove()
 }
 
+//loader commande en cours
+const loaderCommande = () => {
+    const mainElt = document.getElementById("formInvalid")
+    mainElt.textContent="Envoie commande en cours ..."
+    mainElt.id= "loaderCommande"
+}
+
 // //création des carte OURSONS sur la page d'index
 // const creerListeProduit = (listeProduits, produits) => {
 
