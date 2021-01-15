@@ -27,16 +27,8 @@ const creerElement = (elem, classe, id, textContent, href, src) => {
 //loader commande en cours
 const loaderCommande = () => {
     const mainElt = document.getElementById("formInvalid")
-    mainElt.classList = "gooey"
-    mainElt.textContent=""
-
-    const dotElt = creerElement("span", "dot")
-    const dotsElt = creerElement("div", "dots")
-    for (let i = 0; i < 3; i++ ) {
-        const spanELt = creerElement("span")
-        dotsElt.appendChild(spanELt)
-    }
-    mainElt.append(dotElt, dotsElt)
+    mainElt.textContent="Envoie commande en cours ..."
+    mainElt.id= "loaderCommande"
 }
 
 //création loader

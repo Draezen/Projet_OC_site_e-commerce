@@ -69,7 +69,7 @@ const validerFormulaire = (form) =>{
     if (formValide.length === 5){
 
         //envoie de commande en cours
-        //loaderCommande()
+        loaderCommande()
 
         //completer la commande
         const urlOrder = "http://localhost:3000/api/teddies/order";
