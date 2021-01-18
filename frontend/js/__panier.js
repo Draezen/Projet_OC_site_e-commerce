@@ -5,7 +5,7 @@
 const creerListeProduits = () => {
     const basketArticles = new View().selectionnerElement("#basketArticles")
     const basketTotal = new View().selectionnerElement("#basketTotal")
-    recapPanier(basketArticles, basketTotal)
+    creerPanier(basketArticles, basketTotal)
 }
 
 window.addEventListener("load", creerListeProduits)

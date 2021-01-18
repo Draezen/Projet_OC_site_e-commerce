@@ -1,10 +1,10 @@
 
-class Panier {
+class ModelPanier {
     constructor(){}
 
-    ajouter(produit){
-        const panierStorage = new LocalStorage("panier")
-        panierStorage.creer(produit)
+    ajouter(storage, produit){
+        //const panierStorage = new LocalStorage("panier")
+        storage.creer("panier", produit)
     }
 
     supprimer(article){
@@ -22,8 +22,55 @@ class Panier {
     }
 
     calculerTotal(){
-
+        const prices = document.getElementsByClassName("basket__recap--price")
+        let priceTotal = 0
+        for (let price of prices) {
+            priceTotal += parseInt(price.textContent)
+        }
+        return priceTotal
     }
+}
+
+class ModelCommande {
+    constructor(){
+    }
+
+    //Remplir la commande
+    remplirBonCommande = (form, storage) => {
+        const order = {
+            contact: {
+                firstName: form.elements.formFirstName.value,
+                lastName: form.elements.formLastName.value,
+                address: form.elements.formAddress.value,
+                city: form.elements.formCity.value,
+                email: form.elements.formEmail.value
+            },
+            products: []
+        }
+        this.ajouterIdCommande(order.products, storage)
+        return order
+    }
+    
+    //Récupérer les id des produit à commander
+    ajouterIdCommande = (produits, storage) => {
+        const panier = storage.lire("panier")
+        panier.forEach(produit => {
+            produits.push(produit.id)
+        })
+        return produits
+    }
+    
+    //enregistrement de l'id et du prix
+    validerCommande = (data, storage) => {
+        //const panierStorage = new LocalStorage("commande")
+        const price = parseInt(document.getElementById("basketTotal").textContent)
+        const id = data.orderId
+        const commande = { prix: price, id: id }
+        storage.creer("commande", commande)
+    }
+    
+
+
 }
 
 let compteur = 1
@@ -38,41 +85,5 @@ const prix = (prix) => {
     return new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" }).format(prix)
 }
 
-//calculer le prix total du panier
-const totalPanierCalcul = () => {
-    const prices = document.getElementsByClassName("basket__recap--price")
-    let priceTotal = 0
-    for (let price of prices) {
-        priceTotal += parseInt(price.textContent)
-    }
-    return priceTotal
-}
 
-//Afficher le prix total du panier
-const totalPanierAffichage = (container) => {
-    const priceTotal = totalPanierCalcul()
-    container.textContent = prix(priceTotal)
-}
 
-//Vérification saisie
-const verifRegexChamp = (champ, regex) => {
-    if (!regex.test(champ.target.value)) {
-        return false;
-    }
-}
-
-//Remplir la commande
-const remplirBonCommande = (form) => {
-    const order = {
-        contact: {
-            firstName: form.elements.formFirstName.value,
-            lastName: form.elements.formLastName.value,
-            address: form.elements.formAddress.value,
-            city: form.elements.formCity.value,
-            email: form.elements.formEmail.value
-        },
-        products: []
-    }
-    ajouterIdCommande(order.products)
-    return order
-}
