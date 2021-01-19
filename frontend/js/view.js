@@ -36,7 +36,7 @@ class View {
             const productLink = this.creerElement("a", `${produits}__link`, "", "", "produit.html?id=" + produit._id)
             const productImage = this.creerElement("img", `${produits}__image`, "", "", "", produit.imageUrl)
             const productName = this.creerElement("h2", `${produits}__name`, "", produit.name)
-            const productPrice = this.creerElement("p", `${produits}__price`, "", prix(produit.price / 100))
+            const productPrice = this.creerElement("p", `${produits}__price`, "", this.calculerDevise(produit.price / 100))
     
             //ajout dans le DOM
             productElt.appendChild(productLink);
@@ -47,7 +47,7 @@ class View {
         });
     }
 
-    creerProduit = (infosProduit, produit, panier) => {
+    creerProduit = (infosProduit, produit) => {
 
         //suppression du loader
         this.removeLoader("#loader", produit)
@@ -85,23 +85,20 @@ class View {
         }
     
         //ajout dans le DOM
-        productColorElt.append(labelFormElt,selectFormElt)
-    
+        productColorElt.append(labelFormElt,selectFormElt)   
         columnTwoELt.append(productNameElt, productAboutElt,productColorElt)
     
         //Prix - ajout panier
         //création des éléments
         const columnThreeELt = this.creerElement("div", `${produit}__column-three`)
         const productPriceHeadingElt = this.creerElement("h2", `${produit}__price--heading`, "", "Prix" )
-        const productPriceElt = this.creerElement("p", `${produit}__price`, "", prix(infosProduit.price / 100))
+        const productPriceElt = this.creerElement("p", `${produit}__price`, "", this.calculerDevise(infosProduit.price / 100))
         const productAddElt = this.creerElement("button", `${produit}__add`, "addToBAsket","Ajouter au panier")
     
         //fonction ajout au panier sur le boutton
         productAddElt.addEventListener("click", () => {
             const product = [{nom : productNameElt.textContent, prix : productPriceElt.textContent, qte : 1, id : infosProduit._id}]
             pageProduit.addToBasket(product)
-            //panier.ajouter(product)
-            //this.confirmationAjout()
         })
     
         const productConfirmElt = this.creerElement("p", `${produit}__confirm`, "confirmAdd")
@@ -109,17 +106,17 @@ class View {
         const confirmTextElt = this.creerElement("span", "", "confirmText")
     
         //Ajout dans le DOM
-        productConfirmElt.append(counterClickElt, confirmTextElt)
-    
+        productConfirmElt.append(counterClickElt, confirmTextElt)  
         columnThreeELt.append(productPriceHeadingElt, productPriceElt, productAddElt, productConfirmElt)
-    
         productElt.append(columnOneELt, columnTwoELt, columnThreeELt)
     }
 
     //affichages des produits dans le panier
     creerPanier = (container, storage) => {
+
         container.innerHTML = ""
         const panier = storage.lire("panier")
+
         if (panier !== null) {
             //si panier non vide
             for (let i in panier) {
@@ -159,9 +156,11 @@ class View {
         mainElt.id = id
         const loaderHeadingElt = this.creerElement("h2", "", "loaderHeading", "Chargement")
         const loaderElt = this.creerElement("div", "lds-roller", `div${id}`)
+
         //création des noeuds pour l'animation
         mainElt.appendChild(loaderHeadingElt)
         mainElt.appendChild(loaderElt)
+
         //création des div pour l'animation
         for (let i = 0; i < 8; i++) {
             const divElt = this.creerElement("div", "div__loader")
@@ -173,6 +172,7 @@ class View {
         //Suppression loader
         const containerElt = this.selectionnerElement(selecteur)
         containerElt.id = `${product}Container`
+
         //suppression des noeuds de l'animation
         document.getElementById("divloader").remove()
         document.getElementById("loaderHeading").remove()
@@ -193,17 +193,19 @@ class View {
     }
 
     //message de confirmation d'ajout au panier
-    confirmationAjout = () => {
+    confirmationAjout = (cptClick) => {
         const confirmELt = this.selectionnerElement("#confirmText")
         const compteurElt = this.selectionnerElement("#counterClick")
+
         //création du message
-        compteurElt.textContent = compteurClick()
+        compteurElt.textContent = cptClick
         confirmELt.textContent = " Ourson(s) ajouté(s) au panier !"
+        
         //supprimer le message apres 2s
         setTimeout( () => {
             confirmELt.textContent = ""
             compteurElt.textContent = ""
-            compteur = 1
+            cptClick = 1
         }, 2000)
     }
 
@@ -251,10 +253,15 @@ class View {
     }
 
     //récupération de la validation de commande
-    afficherValidationCommande = (storage, commande) => {
-        document.getElementById("orderPrice").textContent = prix(commande.prix)
+    afficherValidationCommande = (commande) => {
+        document.getElementById("orderPrice").textContent = this.calculerDevise(commande.prix)
         document.getElementById("orderId").textContent = commande.id
     }
+
+    //Mise en forme du prix avec l'internationalisation 
+    calculerDevise = (prix) => {
+    return new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" }).format(prix)
+}
     
 }
 

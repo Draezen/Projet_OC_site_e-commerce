@@ -7,7 +7,7 @@ class ConfirmationController {
 
     show(){
         if (this.localStorage.lire("commande") !== null){
-            this.view.afficherValidationCommande(this.localStorage, this.localStorage.lire("commande"))
+            this.view.afficherValidationCommande(this.localStorage.lire("commande"))
             localStorage.clear()
         } else {
             window.location.href = "./index.html"

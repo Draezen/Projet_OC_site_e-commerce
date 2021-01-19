@@ -1,6 +1,8 @@
 
 class ModelPanier {
-    constructor(){}
+    constructor(){
+        this.compteur = 1
+    }
 
     ajouter(storage, produit){
         //const panierStorage = new LocalStorage("panier")
@@ -17,10 +19,6 @@ class ModelPanier {
         panierStorage.vider()
     }
 
-    afficher(){
-
-    }
-
     calculerTotal(){
         const prices = document.getElementsByClassName("basket__recap--price")
         let priceTotal = 0
@@ -28,6 +26,11 @@ class ModelPanier {
             priceTotal += parseInt(price.textContent)
         }
         return priceTotal
+    }
+
+    //compteur de click
+    compteurClick() {
+        return this.compteur ++
     }
 }
 
@@ -47,16 +50,20 @@ class ModelCommande {
             },
             products: []
         }
+
         this.ajouterIdCommande(order.products, storage)
+
         return order
     }
     
     //Récupérer les id des produit à commander
     ajouterIdCommande = (produits, storage) => {
         const panier = storage.lire("panier")
+
         panier.forEach(produit => {
             produits.push(produit.id)
         })
+
         return produits
     }
     
@@ -66,24 +73,14 @@ class ModelCommande {
         const price = parseInt(document.getElementById("basketTotal").textContent)
         const id = data.orderId
         const commande = { prix: price, id: id }
+
         storage.creer("commande", commande)
     }
-    
-
 
 }
 
-let compteur = 1
 
-//compteur de click
-const compteurClick = () => {
-    return compteur++
-}
 
-//Mise en forme du prix avec l'internationalisation
-const prix = (prix) => {
-    return new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" }).format(prix)
-}
 
 
 

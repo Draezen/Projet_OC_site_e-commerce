@@ -18,7 +18,7 @@ class ProduitController {
         })
         .catch((e) =>{
             //si URL incomplet (id non valide ou manquant)
-            messageErreur("main", "urlInvalid", "<h1>URL invalide !</h1> <h2>Veuillez réessayer avec un autre ourson !</h2>")
+            this.view.messageErreur("main", "urlInvalid", "<h1>URL invalide !</h1> <h2>Veuillez réessayer avec un autre ourson !</h2>")
         })
         return response
     }
@@ -33,14 +33,15 @@ class ProduitController {
                 this.view.messageErreur("main", "serverDown", "<h1>Problème de connexion !</h1> <h2> Veuillez réessayer dans quelques instants !</h2>")
             } else {
                 // remplissage de la page produit
-                this.view.creerProduit(infosProduit, "teddy", this.panier);
+                this.view.creerProduit(infosProduit, "teddy");
             }
         })
     }
 
     addToBasket(produit){
         this.panier.ajouter(this.storage, produit)
-        this.view.confirmationAjout()
+        const cptAjout = this.panier.compteurClick();
+        this.view.confirmationAjout(cptAjout)
     }
 }
 

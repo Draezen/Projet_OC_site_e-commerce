@@ -41,7 +41,7 @@ class PanierController{
 
     priceBasket(container){
         const priceTotal = this.panier.calculerTotal()
-        container.textContent = prix(priceTotal)
+        container.textContent = this.view.calculerDevise(priceTotal)
     }
     
     checkFieldLastName = (elt) =>{

@@ -1,15 +1,7 @@
 class ModelForm{
     constructor(){
-
     }
 
-    valider(){
-
-    }
-
-    envoyer(){
-
-    }
     //Vérification saisie
     verifRegexChamp = (champ, regex) => {
         if (!regex.test(champ.target.value)) {
