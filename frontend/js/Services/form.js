@@ -1,4 +1,4 @@
-class ModelForm{
+class ValidateurForm{
     constructor(){
     }
 

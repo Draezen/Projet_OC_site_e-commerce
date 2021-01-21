@@ -17,4 +17,14 @@ class Request {
             return e
         }
     }
+
+    init(order){
+        return  {
+            method : "POST",
+            headers : {
+                "Content-Type" : "application/json"
+            },
+            body : JSON.stringify(order)
+        }
+    }
 }

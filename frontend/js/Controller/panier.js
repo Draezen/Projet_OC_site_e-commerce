@@ -30,12 +30,12 @@ class PanierController{
     }
 
     emptyBasket = () => {
-        this.panier.vider()
+        this.panier.vider(this.localStorage)
         this.showBasket()
     }
 
     deleteProduct(cle, i){
-        this.panier.supprimer(cle, i)
+        this.panier.supprimer(this.localStorage, cle, i)
         this.showBasket()
     }
 
@@ -79,13 +79,8 @@ class PanierController{
     
             //completer la commande
             const order = this.command.remplirBonCommande(form, this.localStorage)
-            const init = {
-                method : "POST",
-                headers : {
-                    "Content-Type" : "application/json"
-                },
-                body : JSON.stringify(order)
-            }
+
+            const init = this.request.init(order)
             
             const postCommande = this.request.requete(this.urlOrder, init)
             
@@ -104,6 +99,6 @@ class PanierController{
     }
 }
 
-const pagePanier = new PanierController(new Request(), new View(), new LocalStorage(), new ModelPanier(), new ModelForm(), new ModelCommande())
+const pagePanier = new PanierController(new Request(), new View(), new LocalStorage(), new ModelPanier(), new ValidateurForm(), new ModelCommande())
 
 pagePanier.showBasket()

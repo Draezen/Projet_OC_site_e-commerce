@@ -1,39 +1,3 @@
-
-class ModelPanier {
-    constructor(){
-        this.compteur = 1
-    }
-
-    ajouter(storage, produit){
-        //const panierStorage = new LocalStorage("panier")
-        storage.creer("panier", produit)
-    }
-
-    supprimer(article){
-        const panierStorage = new LocalStorage("panier")
-        panierStorage.supprimer(article)
-    }
-
-    vider(){
-        const panierStorage = new LocalStorage()
-        panierStorage.vider()
-    }
-
-    calculerTotal(){
-        const prices = document.getElementsByClassName("basket__recap--price")
-        let priceTotal = 0
-        for (let price of prices) {
-            priceTotal += parseInt(price.textContent)
-        }
-        return priceTotal
-    }
-
-    //compteur de click
-    compteurClick() {
-        return this.compteur ++
-    }
-}
-
 class ModelCommande {
     constructor(){
     }

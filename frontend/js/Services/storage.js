@@ -3,7 +3,7 @@ class LocalStorage {
     }
 
     lire(cle){
-        return JSON.parse(localStorage.getItem(cle))   
+        return JSON.parse(localStorage.getItem(cle))
     }
 
     creer(cle, valeur){

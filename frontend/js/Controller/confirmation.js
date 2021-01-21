@@ -1,8 +1,7 @@
 class ConfirmationController {
-    constructor(view, localStorage, command){
+    constructor(view, localStorage){
         this.view = view
         this.localStorage = localStorage
-        this.command = command
     }
 
     show(){
@@ -15,6 +14,6 @@ class ConfirmationController {
     }
 }
 
-const pageConfirmation = new ConfirmationController (new View(), new LocalStorage(), new ModelCommande())
+const pageConfirmation = new ConfirmationController (new View(), new LocalStorage())
 
 pageConfirmation.show()
