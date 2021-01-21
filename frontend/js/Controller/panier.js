@@ -99,6 +99,6 @@ class PanierController{
     }
 }
 
-const pagePanier = new PanierController(new Request(), new View(), new LocalStorage(), new ModelPanier(), new ValidateurForm(), new ModelCommande())
+const pagePanier = new PanierController(new Request(), new View(), new LocalStorage(), new ModelPanier(), new ValidatorForm(), new ModelCommande())
 
 pagePanier.showBasket()

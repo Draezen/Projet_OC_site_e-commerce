@@ -21,7 +21,7 @@ a:link, a:visited{
 
 /* -------------------------  Elements principaux de la page ------------------------ */ 
 body{
-    width: auto;
+    width: 100%;
     margin: auto;
 }
 
@@ -83,6 +83,24 @@ body{
     margin-right: 0.7em;
 }
 
+/* mobile et tablette*/
+@media screen and (max-width: 600px){
+    nav{
+        flex-direction: column;
+    }
+
+    .nav a{
+        margin: 0.5em 0;
+    }
+
+}
+
+/* tablet */
+/* @media screen and (min-width: 601px) and (max-width: 1024px){
+    body{
+       
+    }
+} */
 
 /* -------------------------  Main ------------------------ */ 
 .main{
@@ -271,6 +289,19 @@ body{
     padding : 0 0 1rem 1rem;
 }
 
+/* mobile et tablette*/
+@media screen and (max-width: 600px){
+    .teddies__container{
+        flex-direction: column;
+     }
+
+     .teddies__card{
+         margin-bottom: 2rem;
+         width: 100%;
+     }
+
+}
+
 /* ----------------- Page Produit ------------------------ */
 
 .teddy__container{
@@ -278,7 +309,7 @@ body{
     height: 41rem;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(7, 1fr);
-    grid-gap: 1.5rem;;
+    grid-gap: 1.5em;;
     margin: auto;
     padding: 4em 0;
     width: 90%;
@@ -319,6 +350,7 @@ div[class*="teddy__column"]{
 .teddy__image{
     border-radius: 1rem;
     height: 100%;
+    object-fit: cover;
     width: 100%;
 }
 
@@ -349,6 +381,28 @@ div[class*="teddy__column"]{
     margin: 5em 0;
 }
 
+/* mobile et tablette*/
+@media screen and (max-width: 600px){
+    .teddy__container{
+        grid-template-columns: repeat(7, 1fr);
+        grid-template-rows: repeat(12, 1fr);
+        grid-gap: 1em;;
+        padding: 2em 0;
+    }
+    .teddy__column-one{
+        grid-column: 2 / 7;
+        grid-row: 1 / 5;
+    }
+    .teddy__column-two{
+        grid-column: 2 / 7;   
+        grid-row: 5 /  10;
+    }
+    .teddy__column-three{
+        grid-column: 2 / 7;   
+        grid-row: 10 /  13;
+    }
+
+}
 /* ------------------------ Panier --------------------- */
 
 .basket{
@@ -515,6 +569,14 @@ div[class*="teddy__column"]{
     width: 100%;
 }
 
+.footer h2{
+    font-size: 1.4em;
+    margin: 1rem 0.5rem;
+}
+
+.footer ul{
+    margin: 0 0.5rem;
+}
 .footer__logo img{
     height: 6em;
     margin-top: 1em;
@@ -524,4 +586,41 @@ div[class*="teddy__column"]{
 .fab{
     font-size: 2em;
     margin-right: 1.1em;
+}
+
+/* mobile et tablette*/
+@media screen and (max-width: 600px){
+    .footer{
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .footer h2{
+        margin: 0.5em 0;
+    }
+
+    .footer ul{
+        margin: 0;
+    }
+
+    .footer__logo img{
+        margin: 0;
+    }
+
+    .network{
+        text-align: center;
+    }
+
+    .network p{
+      margin: auto;
+    }
+
+    .fab{
+        margin-right: 0.7em;
+    }
+
+    .footer__subscribe{
+        margin-bottom: 1em;
+        text-align: center;
+    }
 }
