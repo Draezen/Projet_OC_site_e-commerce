@@ -35,7 +35,7 @@ class View {
             const productElt = this.creerElement("article", `${produits}__card`)
             const productLink = this.creerElement("a", `${produits}__link`, "", "", "produit.html?id=" + produit._id)
             const productImage = this.creerElement("img", `${produits}__image`, "", "", "", produit.imageUrl)
-            const productName = this.creerElement("h2", `${produits}__name`, "", produit.name)
+            const productName = this.creerElement("h3", `${produits}__name`, "", produit.name)
             const productPrice = this.creerElement("p", `${produits}__price`, "", this.calculerDevise(produit.price / 100))
     
             //ajout dans le DOM
@@ -69,7 +69,7 @@ class View {
         //Description
         //création des éléments
         const columnTwoELt = this.creerElement("div", `${produit}__column-two`)
-        const productNameElt = this.creerElement("h2", `${produit}__name`, "", infosProduit.name )
+        const productNameElt = this.creerElement("h3", `${produit}__name`, "", infosProduit.name )
         const productAboutElt = this.creerElement("p", `${produit}__about`, "", infosProduit.description)
         const productColorElt = this.creerElement("form", `${produit}__color`, `${produit}Form`)
         const labelFormElt = this.creerElement("label", "", "Couleurs : ")

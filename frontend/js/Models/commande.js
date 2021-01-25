@@ -33,11 +33,9 @@ class ModelCommande {
     
     //enregistrement de l'id et du prix
     validerCommande = (data, storage) => {
-        //const panierStorage = new LocalStorage("commande")
         const price = parseInt(document.getElementById("basketTotal").textContent)
         const id = data.orderId
         const commande = { prix: price, id: id }
-
         storage.creer("commande", commande)
     }
 
