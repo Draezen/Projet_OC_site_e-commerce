@@ -87,7 +87,7 @@ body{
 }
 
 /* mobile et tablette*/
-@media screen and (max-width: 480px){
+@media screen and (max-width: 560px){
     nav{
         flex-direction: column;
     }
@@ -97,15 +97,7 @@ body{
     .nav__submit{
         margin-right: 0;
     }
-
 }
-
-/* tablet */
-/* @media screen and (min-width: 601px) and (max-width: 1024px){
-    body{
-       
-    }
-} */
 
 /* -------------------------  Main ------------------------ */ 
 .main{
@@ -138,7 +130,7 @@ body{
 }
 
 /* mobile */
-@media screen and (max-width: 480px){
+@media screen and (max-width: 560px){
     .index__main{
         padding-bottom: 31rem;
     }
@@ -155,6 +147,14 @@ body{
         height: 36em;
         padding: 0 1em 31rem 1em;
     }
+}
+
+/* mobile landscape*/
+@media screen and (min-width: 561px) and (max-width: 780px){
+    .index__main, .product__main, .panier__main{
+        padding-bottom: 13rem;
+    }
+
 }
 
 /* ------------------- Loader  ----------------------*/
@@ -270,7 +270,7 @@ body{
     100% {
       transform: rotate(360deg);
     }
-  }
+}
   
 
 /* ----------------- Page Index ------------------*/
@@ -322,7 +322,7 @@ body{
 }
 
 /* mobile */
-@media screen and (max-width: 480px){
+@media screen and (max-width: 560px){
     .teddies__container{
         flex-direction: column;
         padding: 1em 2em;
@@ -420,7 +420,7 @@ div[class*="teddy__column"]{
 }
 
 /* mobile */
-@media screen and (max-width: 480px){
+@media screen and (max-width: 560px){
     .teddy__container{
         flex-direction: column;
         height: auto;
@@ -434,26 +434,16 @@ div[class*="teddy__column"]{
         font-size: 1.5rem;
         margin: 0.5em;
     }
-    
 }
 
-/* tablet */
-@media screen and (min-width: 481px) and (max-width: 780px){
-    /* .teddy{
-        height: 800px;
-    } */
-    
-    /* .teddy__container{
-        flex-direction: column;
+/* mobile landscape*/
+@media screen and (min-width: 561px) and (max-width: 780px){
+    .teddy{
+        height: 500px;
     }
-
-    .teddy__column-one{
-        border-radius: 1rem;
-        height: 70%;
-        min-width: 200px;
-        width: 100%;
-    } */
-
+    .teddy__column-one, .teddy__column-two, .teddy__column-three{
+        height: 65%;
+    }
 }
 
 /* ------------------------ Panier --------------------- */
@@ -599,7 +589,7 @@ div[class*="teddy__column"]{
 
 
 /* mobile */
-@media screen and (max-width: 480px){
+@media screen and (max-width: 560px){
     .basket{
        flex-direction: column-reverse;
        padding: 1em;
@@ -610,9 +600,16 @@ div[class*="teddy__column"]{
     }
     .basket__customer{
         width: 100%;
-    }
-    
+    }   
 }
+
+/* mobile landscape*/
+@media screen and (min-width: 561px) and (max-width: 780px){
+    .basket__form--submit{
+        width: 60%;
+    }
+}
+
 
 /* -------------------  confirmation  ----------------------------- */
 
@@ -658,7 +655,7 @@ div[class*="teddy__column"]{
 }
 
 /* mobile */
-@media screen and (max-width: 480px){
+@media screen and (max-width: 560px){
     .footer{
         align-items: center;
         flex-direction: column;
@@ -695,5 +692,13 @@ div[class*="teddy__column"]{
     .footer__subscribe{
         margin-bottom: 1em;
         text-align: center;
+    }
+}
+
+/* mobile landscape*/
+@media screen and (min-width: 561px) and (max-width: 780px){
+    .footer{
+        flex-wrap: wrap;
+        padding-bottom: 2em;
     }
 }
