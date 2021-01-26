@@ -113,6 +113,7 @@ body{
     display: flex;
     font-size: 1.5em;
     flex-direction: column;
+    height: 74vh;
     justify-content: center;
     padding-bottom: 10rem;
     width: 100%;
@@ -124,7 +125,7 @@ body{
     font-size: 1.5em;
     flex-direction: column;
     justify-content: center;
-    height: 65vh;
+    height: 74vh;
     padding-bottom: 10rem;
     width: 100%;
 }
@@ -141,6 +142,7 @@ body{
         padding-bottom: 31rem;
     } 
     .main__confirmation{
+        height: auto;
         padding-bottom: 31rem;
     }  
     #serverDown, #urlInvalid, #basketEmpty{
@@ -150,10 +152,24 @@ body{
 }
 
 /* mobile landscape*/
-@media screen and (min-width: 561px) and (max-width: 780px){
+@media screen and (min-width: 561px) and (max-width: 750px){
     .index__main, .product__main, .panier__main{
         padding-bottom: 13rem;
     }
+    .main__confirmation{
+        height: auto;
+    }  
+}
+
+/* mobile landscape*/
+@media screen and (min-width: 751px) and (max-width: 820px){
+    .index__main, .product__main, .panier__main{
+        padding-bottom: 13rem;
+    }
+    .main__confirmation{
+        height: auto;
+        padding-bottom: 18rem;
+    }  
 
 }
 
@@ -437,7 +453,7 @@ div[class*="teddy__column"]{
 }
 
 /* mobile landscape*/
-@media screen and (min-width: 561px) and (max-width: 780px){
+@media screen and (min-width: 561px) and (max-width: 750px){
     .teddy{
         height: 500px;
     }
@@ -604,7 +620,7 @@ div[class*="teddy__column"]{
 }
 
 /* mobile landscape*/
-@media screen and (min-width: 561px) and (max-width: 780px){
+@media screen and (min-width: 561px) and (max-width: 750px){
     .basket__form--submit{
         width: 60%;
     }
@@ -696,7 +712,14 @@ div[class*="teddy__column"]{
 }
 
 /* mobile landscape*/
-@media screen and (min-width: 561px) and (max-width: 780px){
+@media screen and (min-width: 561px) and (max-width: 750px){
+    .footer{
+        flex-wrap: wrap;
+        padding-bottom: 2em;
+    }
+}
+/* mobile landscape*/
+@media screen and (min-width: 751px) and (max-width: 820px){
     .footer{
         flex-wrap: wrap;
         padding-bottom: 2em;
